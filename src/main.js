@@ -1,8 +1,7 @@
-import animateTitle from './features/animateTitle'
-import createBadge from './features/createBasge'
+import worldHome from './features/world/world'
+
 import './styles/style.css'
 
-console.log('Welcome to Vite + JS + Webflow!')
+console.log('Taona Aoa')
 
-createBadge()
-animateTitle()
+worldHome()
