@@ -109,15 +109,18 @@ async function worldHome() {
 
   // Scatter planes in a sphere layout
   const entries = Object.entries(textures)
+  const alphaMapEntryPair = entries[0]
   // console.log(entries)
   for (let i = 0; i < count; i++) {
-    const currentTexturePair = entries[i]
-    const geometry = new THREE.PlaneGeometry(40, 50)
+    const currentTexturePair = entries[i + 1] // to avoid first one which is alpha map
+    const geometry = new THREE.PlaneGeometry(52, 52)
     const material = new THREE.MeshBasicMaterial({
       // color: new THREE.Color().setHSL(i / count - 0.1, 1, 0.5),
       // color: new THREE.Color('#0e0e0e'),
+      alphaMap: alphaMapEntryPair[1],
       map: currentTexturePair[1],
       side: THREE.DoubleSide,
+      transparent: true,
       // wireframe: true,
     })
     const plane = new THREE.Mesh(geometry, material)
