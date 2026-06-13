@@ -113,9 +113,12 @@ void main() {
 
     // noise distortion
     vec2 noiseCoords = uv*vec2(4.0, 6.0);
-    float sNoise = snoise(vec3(noiseCoords.x + 0.6 * u_time + u_seed, noiseCoords.y - 0.1 * u_time, u_time));
-    float noiseAmp = 100.0;
-    float noiseFreq = 10.0;
+
+    float noiseAmp = 60.0;
+    vec2 noiseFreq = vec2(0.8, 1.0);
+
+    float sNoise = max(0., snoise(vec3(noiseFreq * vec2(noiseCoords.x + 1.4 * u_time + u_seed, noiseCoords.y - 0.6 * u_time), u_time)));
+
     pos.z += noiseAmp * sNoise;
 
 
