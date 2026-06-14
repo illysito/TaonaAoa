@@ -2,13 +2,16 @@
 import * as THREE from 'three'
 
 // Data
-import TEXTURES from '../data/textures'
+import PROJECTS, { ALPHA_MAP } from '../data/textures'
 // Shaders
 import frag from './shaders/gradient_fragShader'
 import vert from './shaders/gradient_vertexShader'
 
 async function worldHome() {
   const canvas = document.getElementById('canvas')
+
+  const raycaster = new THREE.Raycaster()
+  const mouse = new THREE.Vector2()
 
   // Scene
   const scene = new THREE.Scene()
@@ -73,9 +76,9 @@ async function worldHome() {
   scene.add(plane)
 
   // Function to load textures
-  const textures = {}
   const imgLoader = new THREE.TextureLoader()
-  function loadTexture(name, url) {
+
+  function loadTexture(url) {
     return new Promise((resolve, reject) => {
       imgLoader.load(
         url,
@@ -85,7 +88,6 @@ async function worldHome() {
           texture.generateMipmaps = false
           texture.colorSpace = THREE.SRGBColorSpace
 
-          textures[name] = texture
           resolve(texture)
         },
         undefined,
@@ -94,9 +96,13 @@ async function worldHome() {
     })
   }
 
-  // Wait until every CRITICAL texture is loaded into the textures object
+  const alphaMapTexture = await loadTexture(ALPHA_MAP)
+
+  // Adds texture property with loaded texture to the PROJECTS array
   await Promise.all(
-    Object.entries(TEXTURES).map(([name, url]) => loadTexture(name, url))
+    PROJECTS.map(async (project) => {
+      project.texture = await loadTexture(project.image)
+    })
   )
   // console.log(textures)
 
@@ -105,20 +111,20 @@ async function worldHome() {
   scene.add(sphereGroup)
 
   const count = 54
-  const radius = 240
+  const radius = 260
 
   // Scatter planes in a sphere layout
-  const entries = Object.entries(textures)
-  const alphaMapEntryPair = entries[0]
+  // const entries = Object.entries(textures)
+  const spherePlanes = [] // Keep a list of my planes to then raycast them and do stuff
   // console.log(entries)
   for (let i = 0; i < count; i++) {
-    const currentTexturePair = entries[i + 1] // to avoid first one which is alpha map
-    const geometry = new THREE.PlaneGeometry(52, 52)
+    const currentTexture = PROJECTS[i].texture // to avoid first one which is alpha map
+    const geometry = new THREE.PlaneGeometry(36, 36)
     const material = new THREE.MeshBasicMaterial({
       // color: new THREE.Color().setHSL(i / count - 0.1, 1, 0.5),
       // color: new THREE.Color('#0e0e0e'),
-      alphaMap: alphaMapEntryPair[1],
-      map: currentTexturePair[1],
+      alphaMap: alphaMapTexture,
+      map: currentTexture,
       side: THREE.DoubleSide,
       transparent: true,
       // wireframe: true,
@@ -135,13 +141,16 @@ async function worldHome() {
     )
 
     // Store basePositions and Heights for uneven rotation later
+    plane.userData.name = PROJECTS[i].id
     plane.userData.basePosition = plane.position.clone()
     plane.userData.heightFactor = 1 + plane.position.y / radius // 0 to 2
 
     sphereGroup.add(plane)
+    spherePlanes.push(plane)
   }
   sphereGroup.position.z = 80
   sphereGroup.renderOrder = 10
+  console.log(spherePlanes)
 
   // Restore original depth calculation for INSIDE the sphere
   sphereGroup.traverse((child) => {
@@ -158,6 +167,7 @@ async function worldHome() {
   let isDragging = false
   let previousX = 0
   let dragRotation = 0
+  let dragVelocity = 0
   // Quaternion handling to make each plane look always to the FRONT
   const cameraQuat = new THREE.Quaternion()
   const parentQuat = new THREE.Quaternion()
@@ -196,7 +206,7 @@ async function worldHome() {
 
       const scaleFactor = heightFactor - 1
       const planeScaleAnimated =
-        1.2 + 0.24 * Math.sin(counter * 16) * scaleFactor
+        1.2 + 0.12 * Math.sin(counter * 8) * scaleFactor
       plane.scale.set(
         planeScaleAnimated,
         planeScaleAnimated,
@@ -207,9 +217,14 @@ async function worldHome() {
       plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
     })
 
-    sphereGroup.rotation.y = 2 * counter * Math.max(1, dragRotation)
-    sphereGroup.rotation.x = -0.2 * counter
-    dragRotation *= 0.999
+    sphereGroup.rotation.y = 1.2 * counter + 0.6 * dragRotation
+    sphereGroup.rotation.x = -0.2 * Math.sin(counter)
+
+    dragRotation += dragVelocity
+    dragVelocity *= 0.95
+
+    // console.log('DRAG ROTATION:', dragRotation)
+    // console.log('ROTATION: ', sphereGroup.rotation.y)
 
     // if (isDragging) {
     //   sphereGroup.rotation.y += 6 * counter
@@ -227,19 +242,37 @@ async function worldHome() {
     renderer.setSize(window.innerWidth, window.innerHeight)
   })
 
-  // Drag
+  // Drag & Raycast
+  let currentPlaneMesh = null
+  // let isIntersecting = false
+
   window.addEventListener('pointerdown', (event) => {
     isDragging = true
     previousX = event.clientX
   })
 
   window.addEventListener('pointermove', (event) => {
+    // RAYCASTER LOGIC
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+
+    raycaster.setFromCamera(mouse, camera)
+
+    const intersects = raycaster.intersectObjects(spherePlanes)
+
+    if (intersects.length > 0) {
+      currentPlaneMesh = intersects[0].object
+      console.log(currentPlaneMesh.userData.name)
+    }
+
+    // DRAGGING LOGIC
+
     if (!isDragging) return
 
     const movementX = event.clientX - previousX
     previousX = event.clientX
 
-    dragRotation += movementX * 0.0025
+    dragVelocity += movementX * 0.00025
   })
 
   window.addEventListener('pointerup', () => {
@@ -250,10 +283,16 @@ async function worldHome() {
     isDragging = false
   })
 
-  // Mousemove
-  // window.addEventListener('mousemove', (e) => {
-  //   currentX = 1 + e.clientX / window.innerWidth
-  //   currentY = 1 + e.clientY / window.innerWidth
+  // Raycaster
+  // window.addEventListener('click', () => {
+  //   raycaster.setFromCamera(mouse, camera)
+
+  //   const intersects = raycaster.intersectObjects(spherePlanes)
+
+  //   if (intersects.length > 0) {
+  //     currentPlaneMesh = intersects[0].object
+  //     console.log(currentPlaneMesh.userData.name)
+  //   }
   // })
 }
 

@@ -4,198 +4,83 @@ function githubToJsDelivr(permalink) {
     .replace('/blob/', '@')
 }
 
-const URLS = {
-  alphaMap: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/10d8fa5e4ab089f1230d54e74403303b99ad42de/textures/Alpha%20Map%20Rounded%20Corners%202.png'
-  ),
-  a: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-01.webp'
-  ),
-  b: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-02.webp'
-  ),
-  c: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-03.webp'
-  ),
-  d: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-04.webp'
-  ),
-  e: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-05.webp'
-  ),
-  f: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-06.webp'
-  ),
-  g: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-07.webp'
-  ),
-  h: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-08.webp'
-  ),
-  i: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-09.webp'
-  ),
-  j: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-10.webp'
-  ),
-  k: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-11.webp'
-  ),
-  l: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-12.webp'
-  ),
-  m: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-13.webp'
-  ),
-  n: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-01.webp'
-  ),
-  o: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-02.webp'
-  ),
-  p: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-03.webp'
-  ),
-  q: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-04.webp'
-  ),
-  r: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-05.webp'
-  ),
-  s: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-06.webp'
-  ),
-  t: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-07.webp'
-  ),
-  u: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-08.webp'
-  ),
-  v: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-09.webp'
-  ),
-  w: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-10.webp'
-  ),
-  x: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-11.webp'
-  ),
-  y: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-12.webp'
-  ),
-  z: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-01.webp'
-  ),
-  aa: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-02.webp'
-  ),
-  bb: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-03.webp'
-  ),
-  cc: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-04.webp'
-  ),
-  dd: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-05.webp'
-  ),
-  ee: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-06.webp'
-  ),
-  ff: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-07.webp'
-  ),
-  gg: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-08.webp'
-  ),
-  hh: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-09.webp'
-  ),
-  ii: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-10.webp'
-  ),
-  jj: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-11.webp'
-  ),
-  kk: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-12.webp'
-  ),
-  ll: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-13.webp'
-  ),
-  mm: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-08.webp'
-  ),
-  nn: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-01.webp'
-  ),
-  oo: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-02.webp'
-  ),
-  pp: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-03.webp'
-  ),
-  qq: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-04.webp'
-  ),
-  rr: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-05.webp'
-  ),
-  ss: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-06.webp'
-  ),
-  tt: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-07.webp'
-  ),
-  uu: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-08.webp'
-  ),
-  vv: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-09.webp'
-  ),
-  ww: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-10.webp'
-  ),
-  xx: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-11.webp'
-  ),
-  yy: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-12.webp'
-  ),
-  zz: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-01.webp'
-  ),
-  aaa: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-02.webp'
-  ),
-  bbb: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-03.webp'
-  ),
-  ccc: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-04.webp'
-  ),
-  ddd: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-05.webp'
-  ),
-  eee: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-06.webp'
-  ),
-  fff: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-07.webp'
-  ),
-  ggg: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-13.webp'
-  ),
-  hhh: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-12.webp'
-  ),
-  iii: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-11.webp'
-  ),
-  jjj: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-10.webp'
-  ),
-  kkk: githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/49e59ae8d50465656c089ca4794bd4a0c1a2a001/textures/a-09.webp'
-  ),
-}
-export default URLS
+export const ALPHA_MAP = githubToJsDelivr(
+  'https://github.com/illysito/TaonaAoa/blob/10d8fa5e4ab089f1230d54e74403303b99ad42de/textures/Alpha%20Map%20Rounded%20Corners%202.png'
+)
+
+const commit = '49e59ae8d50465656c089ca4794bd4a0c1a2a001'
+const base = `https://github.com/illysito/TaonaAoa/blob/${commit}/textures`
+
+const makeImage = (filename) => githubToJsDelivr(`${base}/${filename}`)
+
+const PROJECTS = [
+  { id: 'ajodar_0', image: makeImage('a-01.webp') },
+  { id: 'lilu_0', image: makeImage('a-02.webp') },
+  { id: 'rafa_0', image: makeImage('a-03.webp') },
+  { id: 'master_0', image: makeImage('a-04.webp') },
+  { id: 'mambo_0', image: makeImage('a-05.webp') },
+  { id: 'impulse_0', image: makeImage('a-06.webp') },
+  { id: 'encable_0', image: makeImage('a-07.webp') },
+  { id: 'jam_0', image: makeImage('a-08.webp') },
+  { id: 'ventana_0', image: makeImage('a-09.webp') },
+  { id: 'buzo_0', image: makeImage('a-10.webp') },
+  { id: 'ana_0', image: makeImage('a-11.webp') },
+  { id: 'amber_0', image: makeImage('a-12.webp') },
+  { id: 'cofradia_0', image: makeImage('a-13.webp') },
+
+  { id: 'ajodar_1', image: makeImage('a-01.webp') },
+  { id: 'lilu_1', image: makeImage('a-02.webp') },
+  { id: 'rafa_1', image: makeImage('a-03.webp') },
+  { id: 'master_1', image: makeImage('a-04.webp') },
+  { id: 'mambo_1', image: makeImage('a-05.webp') },
+  { id: 'impulse_1', image: makeImage('a-06.webp') },
+  { id: 'encable_1', image: makeImage('a-07.webp') },
+  { id: 'jam_1', image: makeImage('a-08.webp') },
+  { id: 'ventana_1', image: makeImage('a-09.webp') },
+  { id: 'buzo_1', image: makeImage('a-10.webp') },
+  { id: 'ana_1', image: makeImage('a-11.webp') },
+  { id: 'amber_1', image: makeImage('a-12.webp') },
+  { id: 'ajodar_2', image: makeImage('a-01.webp') },
+
+  { id: 'lilu_2', image: makeImage('a-02.webp') },
+  { id: 'rafa_2', image: makeImage('a-03.webp') },
+  { id: 'master_2', image: makeImage('a-04.webp') },
+  { id: 'mambo_2', image: makeImage('a-05.webp') },
+  { id: 'impulse_2', image: makeImage('a-06.webp') },
+  { id: 'encable_2', image: makeImage('a-07.webp') },
+  { id: 'jam_2', image: makeImage('a-08.webp') },
+  { id: 'ventana_2', image: makeImage('a-09.webp') },
+  { id: 'buzo_2', image: makeImage('a-10.webp') },
+  { id: 'ana_2', image: makeImage('a-11.webp') },
+  { id: 'amber_2', image: makeImage('a-12.webp') },
+  { id: 'cofradia_2', image: makeImage('a-13.webp') },
+  { id: 'jam_2', image: makeImage('a-08.webp') },
+
+  { id: 'ajodar_3', image: makeImage('a-01.webp') },
+  { id: 'lilu_3', image: makeImage('a-02.webp') },
+  { id: 'rafa_3', image: makeImage('a-03.webp') },
+  { id: 'master_3', image: makeImage('a-04.webp') },
+  { id: 'mambo_3', image: makeImage('a-05.webp') },
+  { id: 'impulse_3', image: makeImage('a-06.webp') },
+  { id: 'encable_3', image: makeImage('a-07.webp') },
+  { id: 'jam_3', image: makeImage('a-08.webp') },
+  { id: 'ventana_3', image: makeImage('a-09.webp') },
+  { id: 'buzo_3', image: makeImage('a-10.webp') },
+  { id: 'ana_3', image: makeImage('a-11.webp') },
+  { id: 'amber_3', image: makeImage('a-12.webp') },
+  { id: 'ajodar_4', image: makeImage('a-01.webp') },
+
+  { id: 'lilu_4', image: makeImage('a-02.webp') },
+  { id: 'rafa_4', image: makeImage('a-03.webp') },
+  { id: 'master_4', image: makeImage('a-04.webp') },
+  { id: 'mambo_4', image: makeImage('a-05.webp') },
+  { id: 'impulse_4', image: makeImage('a-06.webp') },
+  { id: 'encable_4', image: makeImage('a-07.webp') },
+  { id: 'cofradia_3', image: makeImage('a-13.webp') },
+  { id: 'amber_4', image: makeImage('a-12.webp') },
+  { id: 'ana_4', image: makeImage('a-11.webp') },
+  { id: 'buzo_4', image: makeImage('a-10.webp') },
+  { id: 'ventana_4', image: makeImage('a-09.webp') },
+]
+
+export default PROJECTS
