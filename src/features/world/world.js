@@ -1,4 +1,4 @@
-// import gsap from 'gsap'
+import gsap from 'gsap'
 import * as THREE from 'three'
 
 // Data
@@ -8,6 +8,8 @@ import frag from './shaders/gradient_fragShader'
 import vert from './shaders/gradient_vertexShader'
 
 async function worldHome() {
+  // -------------------------------------------------------------- Setup --------------------------------------------------------------
+
   const canvas = document.getElementById('canvas')
 
   const raycaster = new THREE.Raycaster()
@@ -43,7 +45,7 @@ async function worldHome() {
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-  // Main plane creation
+  // -------------------------------------------------------------- Background Plane --------------------------------------------------------------
   const planeGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight,
@@ -59,10 +61,6 @@ async function worldHome() {
       u_time: { value: 0 },
       u_seed: { value: seed },
     },
-    // transparent: true,
-    // blending: THREE.AdditiveBlending,
-    // depthWrite: false,
-    // wireframe: true,
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
   const planeScale = 2.4
@@ -75,7 +73,8 @@ async function worldHome() {
   plane.material.depthTest = true
   scene.add(plane)
 
-  // Function to load textures
+  // -------------------------------------------------------------- Load Textures --------------------------------------------------------------
+
   const imgLoader = new THREE.TextureLoader()
 
   function loadTexture(url) {
@@ -104,22 +103,22 @@ async function worldHome() {
       project.texture = await loadTexture(project.image)
     })
   )
-  // console.log(textures)
 
-  // SPHERE
+  // -------------------------------------------------------------- Create Sphere --------------------------------------------------------------
+
   const sphereGroup = new THREE.Group()
   scene.add(sphereGroup)
 
   const count = 54
-  const radius = 260
+  const radius = 250
+  const planeSize = 54
 
+  // Keep a list of my planes to then raycast them and do stuff
+  const spherePlanes = []
   // Scatter planes in a sphere layout
-  // const entries = Object.entries(textures)
-  const spherePlanes = [] // Keep a list of my planes to then raycast them and do stuff
-  // console.log(entries)
   for (let i = 0; i < count; i++) {
     const currentTexture = PROJECTS[i].texture // to avoid first one which is alpha map
-    const geometry = new THREE.PlaneGeometry(36, 36)
+    const geometry = new THREE.PlaneGeometry(planeSize, planeSize)
     const material = new THREE.MeshBasicMaterial({
       // color: new THREE.Color().setHSL(i / count - 0.1, 1, 0.5),
       // color: new THREE.Color('#0e0e0e'),
@@ -150,7 +149,6 @@ async function worldHome() {
   }
   sphereGroup.position.z = 80
   sphereGroup.renderOrder = 10
-  console.log(spherePlanes)
 
   // Restore original depth calculation for INSIDE the sphere
   sphereGroup.traverse((child) => {
@@ -162,87 +160,96 @@ async function worldHome() {
     }
   })
 
-  // Loop
-  let counter = 0
+  // -------------------------------------------------------------- Loop --------------------------------------------------------------
+
+  // normal counter
+  let planeCounter = 0
+  let sphereCounter = 0
+
+  // dragging variables
   let isDragging = false
   let previousX = 0
   let dragRotation = 0
   let dragVelocity = 0
+
+  // click variables
+  let isMotionStopped = false
+
   // Quaternion handling to make each plane look always to the FRONT
   const cameraQuat = new THREE.Quaternion()
   const parentQuat = new THREE.Quaternion()
   const inverseParentQuat = new THREE.Quaternion()
 
   function animate() {
-    counter = (counter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
-
-    planeMaterial.uniforms.u_time.value = counter
+    planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
+    planeMaterial.uniforms.u_time.value = planeCounter
 
     // Quaternion handling to make each plane look always to the FRONT
     camera.getWorldQuaternion(cameraQuat)
     sphereGroup.getWorldQuaternion(parentQuat)
     inverseParentQuat.copy(parentQuat).invert()
 
-    sphereGroup.children.forEach((plane) => {
-      // Calculations to make each "layer" of the sphere revolve differently
-      const base = plane.userData.basePosition
-      const y = base.y + 0.4 * Math.sin(counter)
+    if (!isMotionStopped) {
+      // Planes inside the sphere animations
+      sphereCounter = (sphereCounter + 0.001) % 5000
 
-      const heightFactor = plane.userData.heightFactor
+      sphereGroup.children.forEach((plane) => {
+        // Calculations to make each "layer" of the sphere revolve differently
+        const base = plane.userData.basePosition
+        const y = base.y + 0.4 * Math.sin(sphereCounter)
 
-      // different speed depending on height
-      const speed = 0.0015 + heightFactor * 0.0008
+        const heightFactor = plane.userData.heightFactor
 
-      const angle = -counter * speed * 340
+        // different speed depending on height
+        const speed = 0.0015 + heightFactor * 0.0008
 
-      const x =
-        // Math.cos(counter) *
-        base.x * Math.cos(angle) - base.z * Math.sin(angle)
-      const z =
-        // Math.cos(counter) *
-        base.x * Math.sin(angle) + base.z * Math.cos(angle)
+        const angle = -sphereCounter * speed * 340
 
-      plane.position.set(x, y, z)
+        const x =
+          // Math.cos(counter) *
+          base.x * Math.cos(angle) - base.z * Math.sin(angle)
+        const z =
+          // Math.cos(counter) *
+          base.x * Math.sin(angle) + base.z * Math.cos(angle)
 
-      const scaleFactor = heightFactor - 1
-      const planeScaleAnimated =
-        1.2 + 0.12 * Math.sin(counter * 8) * scaleFactor
-      plane.scale.set(
-        planeScaleAnimated,
-        planeScaleAnimated,
-        planeScaleAnimated
-      )
+        plane.position.set(x, y, z)
 
-      // Keep billboard position
-      plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
-    })
+        const scaleFactor = heightFactor - 1
+        const planeScaleAnimated =
+          1.2 + 0.12 * Math.sin(sphereCounter * 8) * scaleFactor
+        plane.scale.set(
+          planeScaleAnimated,
+          planeScaleAnimated,
+          planeScaleAnimated
+        )
 
-    sphereGroup.rotation.y = 1.2 * counter + 0.6 * dragRotation
-    sphereGroup.rotation.x = -0.2 * Math.sin(counter)
+        // Keep billboard position
+        plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
+      })
 
-    dragRotation += dragVelocity
-    dragVelocity *= 0.95
+      // Whole sphere animation
+      sphereGroup.rotation.y = 1.2 * sphereCounter + 0.6 * dragRotation
+      sphereGroup.rotation.x = -0.2 * Math.sin(sphereCounter)
+      dragRotation += dragVelocity
+      dragVelocity *= 0.95
+    }
 
-    // console.log('DRAG ROTATION:', dragRotation)
-    // console.log('ROTATION: ', sphereGroup.rotation.y)
-
-    // if (isDragging) {
-    //   sphereGroup.rotation.y += 6 * counter
-    // }
-
+    // Render and RAF
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
   }
   animate()
 
-  // Resize
+  // -------------------------------------------------------------- Resize --------------------------------------------------------------
+
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
   })
 
-  // Drag & Raycast
+  //-------------------------------------------------------------- Drag & Raycast Events --------------------------------------------------------------
+
   let currentPlaneMesh = null
   // let isIntersecting = false
 
@@ -263,6 +270,8 @@ async function worldHome() {
     if (intersects.length > 0) {
       currentPlaneMesh = intersects[0].object
       console.log(currentPlaneMesh.userData.name)
+    } else {
+      currentPlaneMesh = null
     }
 
     // DRAGGING LOGIC
@@ -284,16 +293,108 @@ async function worldHome() {
   })
 
   // Raycaster
-  // window.addEventListener('click', () => {
-  //   raycaster.setFromCamera(mouse, camera)
 
-  //   const intersects = raycaster.intersectObjects(spherePlanes)
+  // OPACITY
+  function lowerPlanesOpacity() {
+    spherePlanes.forEach((plane) => {
+      if (plane !== currentPlaneMesh) {
+        gsap.to(plane.material, {
+          opacity: 0,
+          duration: 1.2,
+          ease: 'power3.inOut',
+          onComplete: () => (isMotionStopped = true),
+        })
+      }
+    })
+  }
 
-  //   if (intersects.length > 0) {
-  //     currentPlaneMesh = intersects[0].object
-  //     console.log(currentPlaneMesh.userData.name)
-  //   }
-  // })
+  function restorePlanesOpacity() {
+    spherePlanes.forEach((plane) => {
+      if (plane !== currentPlaneMesh) {
+        gsap.to(plane.material, {
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.inOut',
+        })
+      }
+    })
+  }
+
+  // MOTION
+  // function stopCircularMotion() {
+  //   isMotionStopped = true
+  //   // gsap.to(isMotionStopped, {
+  //   //   value: 0,
+  //   //   duration: 1.2,
+  //   //   ease: 'expo.inOut',
+  //   // })
+  // }
+
+  function restoreCircularMotion() {
+    isMotionStopped = false
+    // gsap.to(isMotionStopped, {
+    //   value: 1,
+    //   duration: 1.2,
+    //   ease: 'expo.inOut',
+    // })
+  }
+
+  // PLANE SELECTION
+  function putPlaneIntoView(plane) {
+    plane.userData.originalParent = plane.parent
+
+    plane.userData.originalPosition = plane.position.clone()
+    plane.userData.originalScale = plane.scale.clone()
+
+    scene.attach(plane)
+
+    // plane.renderOrder = 100
+
+    // plane.material.depthTest = false
+    // plane.material.depthWrite = false
+
+    gsap.to(plane.position, {
+      delay: 0.1,
+      x: 0,
+      y: 0,
+      z: 200,
+      duration: 1.2,
+      ease: 'expo.inOut',
+    })
+
+    gsap.to(plane.scale, {
+      delay: 0.1,
+      x: 6,
+      y: 6,
+      z: 6,
+      duration: 1.2,
+      ease: 'expo.inOut',
+      onComplete: () => {
+        gsap.set(plane, {
+          renderOrder: 100,
+        })
+        gsap.set(plane.material, {
+          depthTest: false,
+          depthWrite: false,
+        })
+      },
+    })
+  }
+
+  // function putPlaneBackIntoSphere() {}
+
+  window.addEventListener('click', () => {
+    if (currentPlaneMesh) {
+      // meaning if a plane is HOVERED when user clicks
+      lowerPlanesOpacity()
+      // stopCircularMotion()
+      putPlaneIntoView(currentPlaneMesh)
+    } else {
+      restorePlanesOpacity()
+      restoreCircularMotion()
+      // putPlaneBackIntoSphere()
+    }
+  })
 }
 
 export default worldHome
