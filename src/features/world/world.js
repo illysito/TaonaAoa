@@ -225,6 +225,14 @@ async function worldHome() {
 
         // Keep billboard position
         plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
+        // Custom strange rotation
+        plane.lookAt(
+          100 * Math.cos(10 * sphereCounter),
+          100 * Math.sin(6 * sphereCounter),
+          100 * Math.sin(sphereCounter)
+        )
+        // Look at center of the sphere
+        plane.lookAt(0, 0, 0)
       })
 
       // Whole sphere animation
@@ -304,19 +312,23 @@ async function worldHome() {
           ease: 'power3.inOut',
           onComplete: () => (isMotionStopped = true),
         })
-      }
-    })
-  }
-
-  function restorePlanesOpacity() {
-    spherePlanes.forEach((plane) => {
-      if (plane !== currentPlaneMesh) {
+      } else {
         gsap.to(plane.material, {
           opacity: 1,
           duration: 1.2,
           ease: 'power3.inOut',
         })
       }
+    })
+  }
+
+  function restorePlanesOpacity() {
+    spherePlanes.forEach((plane) => {
+      gsap.to(plane.material, {
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.inOut',
+      })
     })
   }
 
@@ -354,7 +366,7 @@ async function worldHome() {
     // plane.material.depthWrite = false
 
     gsap.to(plane.position, {
-      delay: 0.1,
+      // delay: 0.1,
       x: 0,
       y: 0,
       z: 200,
@@ -363,7 +375,7 @@ async function worldHome() {
     })
 
     gsap.to(plane.scale, {
-      delay: 0.1,
+      // delay: 0.1,
       x: 6,
       y: 6,
       z: 6,
