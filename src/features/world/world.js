@@ -111,7 +111,7 @@ async function worldHome() {
   scene.add(sphereGroup)
 
   const count = 36
-  const radius = window.innerHeight / 3.6
+  const radius = window.innerHeight / 3.4
   const planeSize = window.innerHeight / 14
 
   // Keep a list of my planes to then raycast them and do stuff

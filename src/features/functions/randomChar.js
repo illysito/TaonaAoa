@@ -14,7 +14,7 @@ function randomChar(input, proportion, duration) {
   }
   // split hero heading
   const split = new SplitType(input, {
-    type: 'chars',
+    types: 'words, chars',
   })
 
   console.log(input)
@@ -56,7 +56,7 @@ function randomChar(input, proportion, duration) {
   for (const char of split.chars) {
     if (charCounter >= split.chars.length * proportion) break
 
-    const isValid = /^[a-zñ]$/.test(char.textContent)
+    const isValid = /^[a-záéíóúüñ ]$/i.test(char.textContent)
 
     let r = Math.random()
     if (r > 0.5 && isValid) {
@@ -76,14 +76,14 @@ function randomChar(input, proportion, duration) {
       function tick() {
         const randomIndex = Math.floor(Math.random() * charPool.length)
         const randomOffset = Math.floor(8 * Math.random() - 4)
-        char.textContent = charPool[randomIndex]
+        char.textContent = charPool[randomIndex].toUpperCase()
 
         i++
         delay *= 1.12 // slows down progressively
 
         gsap.fromTo(
           char,
-          { y: 1, opacity: 0.8 },
+          { y: 0, opacity: 0.8 },
           {
             y: 0,
             opacity: 1,
@@ -97,7 +97,7 @@ function randomChar(input, proportion, duration) {
           char.textContent = targetChar
           return
         }
-
+        console.log('ANIMATED')
         setTimeout(tick, delay)
       }
       tick()

@@ -4,6 +4,7 @@ import SplitType from 'split-type'
 
 // gsap.registerPlugin(ScrollTrigger)
 
+const heroHWrapper = document.querySelector('.hero-h-wrapper')
 const heroHeadings = document.querySelectorAll('.hero-h')
 const chars = []
 
@@ -16,13 +17,31 @@ heroHeadings.forEach((h) => {
 })
 
 function clearHero() {
-  gsap.to(chars, {
-    delay: 0.4,
-    opacity: 0,
-    yPercent: -100,
-    duration: 0.8,
+  // Hide
+  // gsap.to(chars, {
+  //   delay: 0.4,
+  //   opacity: 0,
+  //   yPercent: -100,
+  //   duration: 0.8,
+  //   ease: 'expo.inOut',
+  //   stagger: 0.032,
+  // })
+
+  // Zoom out
+  gsap.to(heroHWrapper, {
+    scale: 0,
+    duration: 2,
     ease: 'expo.inOut',
-    stagger: 0.032,
+  })
+  gsap.to(chars, {
+    delay: 0.2,
+    opacity: 0,
+    duration: 1.4,
+    ease: 'expo.inOut',
+    stagger: {
+      each: 0.03,
+      from: 'random',
+    },
   })
 }
 
