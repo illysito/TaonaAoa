@@ -5,6 +5,10 @@ import gsap from 'gsap'
 // gsap.registerPlugin(ScrollTrigger)
 
 const ui_section = document.querySelectorAll('.ui-section')
+
+gsap.set(ui_section, {
+  opacity: 0,
+})
 // const chars = []
 
 // heroHeadings.forEach((h) => {
