@@ -8,6 +8,8 @@ const slide_sections = document.querySelectorAll('.slide-section')
 const contentHeadings = document.querySelectorAll('.content-h')
 const contentPs = document.querySelectorAll('.content-p')
 const contentImgs = document.querySelectorAll('.content-img')
+// UI
+const ui_title = document.querySelector('.title-h')
 
 function fadeSlideOut(previousState, currentState) {
   ui_section.style.pointerEvents = 'auto'
@@ -49,6 +51,11 @@ function fadeSlideOut(previousState, currentState) {
   ]
   const contentImgs_3 = [contentImgs[1]]
 
+  // SWITCH
+
+  const titleRevealDuration = 1.4
+  const titleRevealEase = 'expo.inOut'
+
   switch (previousState) {
     case 0: {
       setTimeout(() => {
@@ -62,6 +69,13 @@ function fadeSlideOut(previousState, currentState) {
           console.log('finished')
           fadeSlideIn(currentState)
         },
+      })
+
+      tl.to(ui_title, {
+        yPercent: 100,
+        opacity: 0,
+        duration: titleRevealDuration,
+        ease: titleRevealEase,
       })
 
       tl.to(
@@ -114,6 +128,13 @@ function fadeSlideOut(previousState, currentState) {
         },
       })
 
+      tl.to(ui_title, {
+        yPercent: 100,
+        opacity: 0,
+        duration: titleRevealDuration,
+        ease: titleRevealEase,
+      })
+
       tl.to(
         slide_sections[1],
         {
@@ -161,6 +182,13 @@ function fadeSlideOut(previousState, currentState) {
           console.log('finished')
           fadeSlideIn(currentState)
         },
+      })
+
+      tl.to(ui_title, {
+        yPercent: 100,
+        opacity: 0,
+        duration: titleRevealDuration,
+        ease: titleRevealEase,
       })
 
       tl.to(

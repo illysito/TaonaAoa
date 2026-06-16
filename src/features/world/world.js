@@ -422,7 +422,13 @@ async function worldHome() {
   window.addEventListener('click', () => {
     if (currentPlaneMesh) {
       expandSphere()
-      window.dispatchEvent(new Event('clearHero'))
+      window.dispatchEvent(
+        new CustomEvent('clearHero', {
+          detail: {
+            state: currentPlaneMesh.userData.state,
+          },
+        })
+      )
       window.dispatchEvent(
         new CustomEvent('changeState', {
           detail: {

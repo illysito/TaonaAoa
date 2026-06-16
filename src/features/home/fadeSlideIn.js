@@ -11,14 +11,9 @@ function fadeSlideIn(currentState) {
   const contentHeadings = document.querySelectorAll('.content-h')
   const contentPs = document.querySelectorAll('.content-p')
   const contentImgs = document.querySelectorAll('.content-img')
-
-  // UI!
-  gsap.to(ui_section, {
-    delay: 1.32,
-    opacity: 1,
-    duration: 1.6,
-    ease: 'linear',
-  })
+  // UI
+  const ui_title = document.querySelector('.title-h')
+  const ui_number = document.querySelector('.number-h')
 
   // SPLIT ELEMENTS INTO CORRESPONDING SLIDES
   const contentHeadings_1 = [contentHeadings[0], contentHeadings[1]]
@@ -49,12 +44,34 @@ function fadeSlideIn(currentState) {
   ]
   const contentImgs_3 = [contentImgs[1]]
 
+  // SWITCH!
+
+  const titleRevealDuration = 1.4
+  const titleRevealEase = 'expo.inOut'
+
   switch (currentState) {
     case 1: {
+      // UI!
+      // gsap.to(ui_section, {
+      //   opacity: 1,
+      //   duration: 1.6,
+      //   ease: 'linear',
+      // })
+
       const tl = gsap.timeline({
         onComplete: () => {
           console.log('finished')
         },
+      })
+
+      ui_title.textContent = 'TAONA AOA'
+      ui_number.textContent = '01'
+
+      tl.to(ui_title, {
+        yPercent: -100,
+        opacity: 1,
+        duration: titleRevealDuration,
+        ease: titleRevealEase,
       })
 
       tl.to(
@@ -106,6 +123,16 @@ function fadeSlideIn(currentState) {
         },
       })
 
+      ui_title.textContent = 'WHY CANARIAS'
+      ui_number.textContent = '02'
+
+      tl.to(ui_title, {
+        yPercent: -100,
+        opacity: 1,
+        duration: titleRevealDuration,
+        ease: titleRevealEase,
+      })
+
       tl.to(
         slide_sections[1],
         {
@@ -152,6 +179,16 @@ function fadeSlideIn(currentState) {
         onComplete: () => {
           console.log('finished')
         },
+      })
+
+      ui_title.textContent = 'LAUNCH IN EUROPE'
+      ui_number.textContent = '03'
+
+      tl.to(ui_title, {
+        yPercent: -100,
+        opacity: 1,
+        duration: titleRevealDuration,
+        ease: titleRevealEase,
       })
 
       tl.to(

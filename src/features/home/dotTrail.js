@@ -49,6 +49,13 @@ function dotTrail() {
       })
     })
   })
+
+  window.addEventListener('clearHero', (e) => {
+    const index = e.detail.state
+    const selectedDot = actualDots[index - 1]
+    console.log(index, 'index', selectedDot)
+    selectedDot.classList.add('is--active')
+  })
 }
 
 export default dotTrail
