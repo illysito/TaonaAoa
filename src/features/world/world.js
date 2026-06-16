@@ -1,5 +1,4 @@
 import gsap from 'gsap'
-import { CustomEase } from 'gsap/CustomEase'
 import * as THREE from 'three'
 
 // Data
@@ -113,42 +112,115 @@ async function worldHome() {
 
   const count = 36
   const radius = window.innerHeight / 3.6
-  const planeSize = window.innerHeight / 16
+  const planeSize = window.innerHeight / 14
 
   // Keep a list of my planes to then raycast them and do stuff
   const spherePlanes = []
-  // Scatter planes in a sphere layout
+
+  // Create the planes with the textures
   for (let i = 0; i < count; i++) {
-    const currentTexture = PROJECTS[i].texture // to avoid first one which is alpha map
+    const currentTexture = PROJECTS[i].texture
     const geometry = new THREE.PlaneGeometry(planeSize, planeSize)
+
     const material = new THREE.MeshBasicMaterial({
-      // color: new THREE.Color().setHSL(i / count - 0.1, 1, 0.5),
-      // color: new THREE.Color('#0e0e0e'),
       alphaMap: alphaMapTexture,
       map: currentTexture,
       side: THREE.DoubleSide,
       transparent: true,
-      // wireframe: true,
     })
+
     const plane = new THREE.Mesh(geometry, material)
 
-    // Fibonacci sphere
-    const phi = Math.acos(1 - (2 * i) / count)
-    const theta = Math.PI * (1 + Math.sqrt(5)) * i
-    plane.position.set(
-      radius * Math.sin(phi) * Math.cos(theta),
-      radius * Math.cos(phi),
-      1.05 * radius * Math.sin(phi) * Math.sin(theta)
-    )
-
-    // Store basePositions and Heights for uneven rotation later
     plane.userData.name = PROJECTS[i].id
-    plane.userData.basePosition = plane.position.clone()
-    plane.userData.heightFactor = 1 + plane.position.y / radius // 0 to 2
+    plane.userData.index = i
 
     sphereGroup.add(plane)
     spherePlanes.push(plane)
   }
+
+  function layoutSphere() {
+    // layout = 'sphere'
+
+    spherePlanes.forEach((plane, i) => {
+      const phi = Math.acos(1 - (2 * i) / count)
+      const theta = Math.PI * (1 + Math.sqrt(5)) * i
+
+      const target = new THREE.Vector3(
+        radius * Math.sin(phi) * Math.cos(theta),
+        radius * Math.cos(phi),
+        1.05 * radius * Math.sin(phi) * Math.sin(theta)
+      )
+
+      plane.userData.basePosition = target.clone()
+      plane.userData.heightFactor = 1 + target.y / radius
+
+      gsap.to(plane.position, {
+        x: target.x,
+        y: target.y,
+        z: target.z,
+        duration: 1.4,
+        ease: 'expo.inOut',
+      })
+    })
+  }
+  layoutSphere()
+
+  function layoutRing() {
+    // layout = 'ring'
+
+    const ringRadius = window.innerHeight / 2.8
+
+    spherePlanes.forEach((plane, i) => {
+      const angle = (i / count) * Math.PI * 2
+
+      const target = new THREE.Vector3(
+        Math.cos(angle) * ringRadius,
+        Math.sin(angle) * ringRadius * 0.25,
+        Math.sin(angle) * ringRadius * 0.65
+      )
+
+      gsap.to(plane.position, {
+        x: target.x,
+        y: target.y,
+        z: target.z,
+        duration: 1.4,
+        ease: 'expo.inOut',
+      })
+    })
+  }
+  // layoutRing()
+  // Scatter planes in a sphere layout
+  // for (let i = 0; i < count; i++) {
+  //   const currentTexture = PROJECTS[i].texture // to avoid first one which is alpha map
+  //   const geometry = new THREE.PlaneGeometry(planeSize, planeSize)
+  //   const material = new THREE.MeshBasicMaterial({
+  //     // color: new THREE.Color().setHSL(i / count - 0.1, 1, 0.5),
+  //     // color: new THREE.Color('#0e0e0e'),
+  //     alphaMap: alphaMapTexture,
+  //     map: currentTexture,
+  //     side: THREE.DoubleSide,
+  //     transparent: true,
+  //     // wireframe: true,
+  //   })
+  //   const plane = new THREE.Mesh(geometry, material)
+
+  //   // Fibonacci sphere
+  //   const phi = Math.acos(1 - (2 * i) / count)
+  //   const theta = Math.PI * (1 + Math.sqrt(5)) * i
+  //   plane.position.set(
+  //     radius * Math.sin(phi) * Math.cos(theta),
+  //     radius * Math.cos(phi),
+  //     1.05 * radius * Math.sin(phi) * Math.sin(theta)
+  //   )
+
+  //   // Store basePositions and Heights for uneven rotation later
+  //   plane.userData.name = PROJECTS[i].id
+  //   plane.userData.basePosition = plane.position.clone()
+  //   plane.userData.heightFactor = 1 + plane.position.y / radius // 0 to 2
+
+  //   sphereGroup.add(plane)
+  //   spherePlanes.push(plane)
+  // }
   sphereGroup.position.z = 80
   sphereGroup.renderOrder = 10
 
@@ -178,7 +250,8 @@ async function worldHome() {
   let dragVelocityY = 0
 
   // click variables
-  let isMotionStopped = false
+  let isSphere = true
+  let isRing = false
 
   // Quaternion handling to make each plane look always to the FRONT
   const cameraQuat = new THREE.Quaternion()
@@ -194,10 +267,15 @@ async function worldHome() {
     sphereGroup.getWorldQuaternion(parentQuat)
     inverseParentQuat.copy(parentQuat).invert()
 
-    if (!isMotionStopped) {
-      // Planes inside the sphere animations
-      sphereCounter = (sphereCounter + 0.001) % 5000
+    // Planes inside the sphere animations
+    sphereCounter = (sphereCounter + 0.001) % 5000
 
+    // sphereGroup.children.forEach((plane) => {
+    //   //   // Keep billboard position
+    //   plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
+    // })
+
+    if (isSphere) {
       sphereGroup.children.forEach((plane) => {
         // Calculations to make each "layer" of the sphere revolve differently
         const base = plane.userData.basePosition
@@ -206,7 +284,7 @@ async function worldHome() {
         const heightFactor = plane.userData.heightFactor
 
         // different speed depending on height
-        const speed = 0.0015 + heightFactor * 0.0008
+        const speed = 0.0015 + heightFactor * 0.0004 * dragRotationX
 
         const angle = -sphereCounter * speed * 340
 
@@ -230,25 +308,21 @@ async function worldHome() {
 
         // Keep billboard position
         plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
-        // Custom strange rotation
-        // plane.lookAt(
-        //   100 * Math.cos(10 * sphereCounter),
-        //   100 * Math.sin(6 * sphereCounter),
-        //   100 * Math.sin(sphereCounter)
-        // )
-        // Look at center of the sphere
-        // plane.lookAt(0, 0, 0)
       })
+    }
 
-      // Whole sphere animation
-      sphereGroup.rotation.y = 1.2 * sphereCounter + 0.6 * dragRotationX
+    // Whole sphere animation
+    sphereGroup.rotation.y = 1.2 * sphereCounter + 0.6 * dragRotationX
+    if (isSphere) {
       sphereGroup.rotation.x =
         -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
-      dragRotationX += dragVelocityX
-      dragRotationY += dragVelocityY
-      dragVelocityX *= 0.95
-      dragVelocityY *= 0.95
+    } else if (isRing) {
+      sphereGroup.rotation.x = -0.2 * Math.sin(sphereCounter)
     }
+    dragRotationX += dragVelocityX
+    dragRotationY += dragVelocityY
+    dragVelocityX *= 0.95
+    dragVelocityY *= 0.95
 
     // Render and RAF
     renderer.render(scene, camera)
@@ -344,65 +418,42 @@ async function worldHome() {
   }
 
   // MOTION
-  CustomEase.create(
-    'power2Expo',
-    'M0,0 C0.12,0 0.25,0.06 0.45,0.25 C0.65,0.45 0.75,1 1,1'
-  )
-  function stopCircularMotion() {
-    // isMotionStopped = true
-    // COLLAPSE
-    // sphereGroup.children.forEach((plane) => {
-    //   gsap.to(plane.position, {
-    //     x: 0,
-    //     y: 0,
-    //     z: 0,
-    //     duration: 1.6,
-    //     ease: 'expo.inOut',
-    //   })
-    //   gsap.to(plane.scale, {
-    //     delay: 0.12,
-    //     x: 0,
-    //     y: 0,
-    //     z: 0,
-    //     duration: 1.6,
-    //     ease: 'expo.inOut',
-    //   })
-    //   // plane.position.set(0, 0, 0)
-
-    //   // const planeScaleAnimated = 0
-    //   // plane.scale.set(
-    //   //   planeScaleAnimated,
-    //   //   planeScaleAnimated,
-    //   //   planeScaleAnimated
-    //   // )
-    // })
+  function expandSphere() {
     // ZOOM IN AGGRESSIVE
     gsap.to(sphereGroup.position, {
       z: 840,
-      scale: 2.8,
+      // scale: 2.8,
       duration: 1.8,
       ease: 'expo.inOut',
+      onComplete: () => {
+        gsap.set(sphereGroup, {
+          visible: false,
+        })
+      },
     })
   }
 
   function restoreCircularMotion() {
+    gsap.set(sphereGroup, {
+      visible: true,
+    })
     gsap.to(sphereGroup.position, {
       z: 80,
-      scale: 1,
+      // scale: 1,
       duration: 1.8,
       ease: 'expo.inOut',
     })
   }
 
   // PLANE SELECTION
-  function putPlaneIntoView(plane) {
-    plane.userData.originalParent = plane.parent
+  // function putPlaneIntoView(plane) {
+  //   plane.userData.originalParent = plane.parent
 
-    plane.userData.originalPosition = plane.position.clone()
-    plane.userData.originalScale = plane.scale.clone()
+  //   plane.userData.originalPosition = plane.position.clone()
+  //   plane.userData.originalScale = plane.scale.clone()
 
-    stopCircularMotion()
-  }
+  //   stopCircularMotion()
+  // }
 
   // function putPlaneBackIntoSphere() {}
 
@@ -411,12 +462,27 @@ async function worldHome() {
       // meaning if a plane is HOVERED when user clicks
       lowerPlanesOpacity()
       // stopCircularMotion()
-      putPlaneIntoView(currentPlaneMesh)
+      expandSphere()
       window.dispatchEvent(new Event('clearHero'))
-    } else {
+    }
+  })
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'r') {
+      layoutRing()
+      isSphere = false
+      isRing = true
+    }
+
+    if (e.key.toLowerCase() === 's') {
+      layoutSphere()
+      isSphere = true
+      isRing = false
+    }
+
+    if (e.key.toLowerCase() === 't') {
       restorePlanesOpacity()
       restoreCircularMotion()
-      // putPlaneBackIntoSphere()
     }
   })
 }

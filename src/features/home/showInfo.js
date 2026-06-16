@@ -4,7 +4,8 @@ import gsap from 'gsap'
 
 // gsap.registerPlugin(ScrollTrigger)
 
-const ui_section = document.querySelectorAll('.ui-section')
+const ui_section = document.querySelector('.ui-section')
+const mapImage = document.querySelector('.map-image')
 
 // const chars = []
 
@@ -17,7 +18,14 @@ const ui_section = document.querySelectorAll('.ui-section')
 // })
 
 function showInfo() {
+  ui_section.style.pointerEvents = 'auto'
   gsap.to(ui_section, {
+    delay: 1.32,
+    opacity: 1,
+    duration: 1.6,
+    ease: 'linear',
+  })
+  gsap.to(mapImage, {
     delay: 1.32,
     opacity: 1,
     duration: 1.6,
