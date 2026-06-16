@@ -412,6 +412,7 @@ async function worldHome() {
       lowerPlanesOpacity()
       // stopCircularMotion()
       putPlaneIntoView(currentPlaneMesh)
+      window.dispatchEvent(new Event('clearHero'))
     } else {
       restorePlanesOpacity()
       restoreCircularMotion()
