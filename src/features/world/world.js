@@ -1,4 +1,5 @@
 import gsap from 'gsap'
+import { CustomEase } from 'gsap/CustomEase'
 import * as THREE from 'three'
 
 // Data
@@ -23,7 +24,7 @@ async function worldHome() {
   const camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
-    100,
+    1,
     2000
   )
   camera.position.z = 600
@@ -65,6 +66,7 @@ async function worldHome() {
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
   const planeScale = 2.4
   plane.rotation.x = 0.1
+  plane.rotation.z = Math.PI
   plane.scale.set(planeScale, planeScale, planeScale)
 
   // Avoid the plane from going OVER the SPHERE
@@ -109,9 +111,9 @@ async function worldHome() {
   const sphereGroup = new THREE.Group()
   scene.add(sphereGroup)
 
-  const count = 54
-  const radius = 250
-  const planeSize = 54
+  const count = 36
+  const radius = window.innerHeight / 3.6
+  const planeSize = window.innerHeight / 16
 
   // Keep a list of my planes to then raycast them and do stuff
   const spherePlanes = []
@@ -169,8 +171,11 @@ async function worldHome() {
   // dragging variables
   let isDragging = false
   let previousX = 0
-  let dragRotation = 0
-  let dragVelocity = 0
+  let previousY = 0
+  let dragRotationX = 0
+  let dragRotationY = 0
+  let dragVelocityX = 0
+  let dragVelocityY = 0
 
   // click variables
   let isMotionStopped = false
@@ -226,20 +231,23 @@ async function worldHome() {
         // Keep billboard position
         plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
         // Custom strange rotation
-        plane.lookAt(
-          100 * Math.cos(10 * sphereCounter),
-          100 * Math.sin(6 * sphereCounter),
-          100 * Math.sin(sphereCounter)
-        )
+        // plane.lookAt(
+        //   100 * Math.cos(10 * sphereCounter),
+        //   100 * Math.sin(6 * sphereCounter),
+        //   100 * Math.sin(sphereCounter)
+        // )
         // Look at center of the sphere
-        plane.lookAt(0, 0, 0)
+        // plane.lookAt(0, 0, 0)
       })
 
       // Whole sphere animation
-      sphereGroup.rotation.y = 1.2 * sphereCounter + 0.6 * dragRotation
-      sphereGroup.rotation.x = -0.2 * Math.sin(sphereCounter)
-      dragRotation += dragVelocity
-      dragVelocity *= 0.95
+      sphereGroup.rotation.y = 1.2 * sphereCounter + 0.6 * dragRotationX
+      sphereGroup.rotation.x =
+        -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
+      dragRotationX += dragVelocityX
+      dragRotationY += dragVelocityY
+      dragVelocityX *= 0.95
+      dragVelocityY *= 0.95
     }
 
     // Render and RAF
@@ -287,9 +295,12 @@ async function worldHome() {
     if (!isDragging) return
 
     const movementX = event.clientX - previousX
+    const movementY = event.clientY - previousY
     previousX = event.clientX
+    previousY = event.clientY
 
-    dragVelocity += movementX * 0.00025
+    dragVelocityX += movementX * 0.00025
+    dragVelocityY += movementY * 0.000025
   })
 
   window.addEventListener('pointerup', () => {
@@ -307,10 +318,10 @@ async function worldHome() {
     spherePlanes.forEach((plane) => {
       if (plane !== currentPlaneMesh) {
         gsap.to(plane.material, {
-          opacity: 0,
+          opacity: 1,
           duration: 1.2,
           ease: 'power3.inOut',
-          onComplete: () => (isMotionStopped = true),
+          // onComplete: () => (isMotionStopped = true),
         })
       } else {
         gsap.to(plane.material, {
@@ -333,22 +344,54 @@ async function worldHome() {
   }
 
   // MOTION
-  // function stopCircularMotion() {
-  //   isMotionStopped = true
-  //   // gsap.to(isMotionStopped, {
-  //   //   value: 0,
-  //   //   duration: 1.2,
-  //   //   ease: 'expo.inOut',
-  //   // })
-  // }
+  CustomEase.create(
+    'power2Expo',
+    'M0,0 C0.12,0 0.25,0.06 0.45,0.25 C0.65,0.45 0.75,1 1,1'
+  )
+  function stopCircularMotion() {
+    // isMotionStopped = true
+    // COLLAPSE
+    // sphereGroup.children.forEach((plane) => {
+    //   gsap.to(plane.position, {
+    //     x: 0,
+    //     y: 0,
+    //     z: 0,
+    //     duration: 1.6,
+    //     ease: 'expo.inOut',
+    //   })
+    //   gsap.to(plane.scale, {
+    //     delay: 0.12,
+    //     x: 0,
+    //     y: 0,
+    //     z: 0,
+    //     duration: 1.6,
+    //     ease: 'expo.inOut',
+    //   })
+    //   // plane.position.set(0, 0, 0)
+
+    //   // const planeScaleAnimated = 0
+    //   // plane.scale.set(
+    //   //   planeScaleAnimated,
+    //   //   planeScaleAnimated,
+    //   //   planeScaleAnimated
+    //   // )
+    // })
+    // ZOOM IN AGGRESSIVE
+    gsap.to(sphereGroup.position, {
+      z: 840,
+      scale: 2.8,
+      duration: 1.8,
+      ease: 'expo.inOut',
+    })
+  }
 
   function restoreCircularMotion() {
-    isMotionStopped = false
-    // gsap.to(isMotionStopped, {
-    //   value: 1,
-    //   duration: 1.2,
-    //   ease: 'expo.inOut',
-    // })
+    gsap.to(sphereGroup.position, {
+      z: 80,
+      scale: 1,
+      duration: 1.8,
+      ease: 'expo.inOut',
+    })
   }
 
   // PLANE SELECTION
@@ -358,39 +401,7 @@ async function worldHome() {
     plane.userData.originalPosition = plane.position.clone()
     plane.userData.originalScale = plane.scale.clone()
 
-    scene.attach(plane)
-
-    // plane.renderOrder = 100
-
-    // plane.material.depthTest = false
-    // plane.material.depthWrite = false
-
-    gsap.to(plane.position, {
-      // delay: 0.1,
-      x: 0,
-      y: 0,
-      z: 200,
-      duration: 1.2,
-      ease: 'expo.inOut',
-    })
-
-    gsap.to(plane.scale, {
-      // delay: 0.1,
-      x: 6,
-      y: 6,
-      z: 6,
-      duration: 1.2,
-      ease: 'expo.inOut',
-      onComplete: () => {
-        gsap.set(plane, {
-          renderOrder: 100,
-        })
-        gsap.set(plane.material, {
-          depthTest: false,
-          depthWrite: false,
-        })
-      },
-    })
+    stopCircularMotion()
   }
 
   // function putPlaneBackIntoSphere() {}
