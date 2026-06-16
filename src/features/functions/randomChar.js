@@ -21,6 +21,16 @@ function randomChar(input, proportion, duration) {
   console.log(split)
 
   const charPool = [
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
     'a',
     'b',
     'c',
@@ -56,7 +66,7 @@ function randomChar(input, proportion, duration) {
   for (const char of split.chars) {
     if (charCounter >= split.chars.length * proportion) break
 
-    const isValid = /^[a-záéíóúüñ ]$/i.test(char.textContent)
+    const isValid = /^[1-9a-záéíóúüñ ]$/i.test(char.textContent)
 
     let r = Math.random()
     if (r > 0.5 && isValid) {

@@ -36,11 +36,12 @@ void main()
 
   vec4 white = vec4(0.98, 0.96, 0.94, 1.0);
   vec4 black = vec4(0.02, 0.02, 0.02, 1.0);
-  vec4 blue = vec4(0.1451, 0.1490, 0.4235 + 0.1 * sin(2. * u_time), 1.0);
-  vec4 green = vec4(0.0, 0.7 + 0.16 * sin(2. * u_time), 0.15, 1.0);
+  vec4 blue = vec4(0.1451, 0.1490, 0.4235 + 0.06 * sin(2. * u_time), 1.0);
+  vec4 green = vec4(0.0, 0.8588, 0.2902, 1.0);
   vec4 red = vec4(0.7 + 0.16 * sin(2. * u_time), 0.15, 0.15, 1.0);
   float horizontalMixer = smoothstep(0.1, 0.35, u_zoom * uv.x * uv.y) - smoothstep(0.55, 0.85, uv.x);
-  vec4 color = mix(blue, black, horizontalMixer);
+  float greenMixer = smoothstep(0.48, 0.5, uv.x * uv.y) - smoothstep(0.5, 0.52, uv.x * uv.y);
+  vec4 color = mix(blue, black, horizontalMixer) + 0.8 * mix(black, green, greenMixer);
 
   color *= 1.0 + 0.6 * random;
 

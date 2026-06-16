@@ -10,6 +10,15 @@ const contentPs = document.querySelectorAll('.content-p')
 const contentImgs = document.querySelectorAll('.content-img')
 // UI
 const ui_title = document.querySelector('.title-h')
+// const ui_highlight = document.querySelector('.green-highlight')
+
+// let splitHeadings = []
+// contentHeadings.forEach((h) => {
+//   const splitH = new SplitType(h, {
+//     types: 'lines',
+//   })
+//   splitHeadings.push(splitH.lines)
+// })
 
 function fadeSlideOut(previousState, currentState) {
   ui_section.style.pointerEvents = 'auto'
@@ -53,8 +62,8 @@ function fadeSlideOut(previousState, currentState) {
 
   // SWITCH
 
-  const titleRevealDuration = 1.4
-  const titleRevealEase = 'expo.inOut'
+  const titleRevealDuration = 1
+  const titleRevealEase = 'power2.inOut'
 
   switch (previousState) {
     case 0: {
@@ -72,31 +81,31 @@ function fadeSlideOut(previousState, currentState) {
       })
 
       tl.to(ui_title, {
-        yPercent: 100,
+        yPercent: 20,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
       })
 
-      tl.to(
-        slide_sections[0],
-        {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'none',
-        },
-        0
-      )
+        .to(
+          slide_sections[0],
+          {
+            opacity: 0,
+            duration: 0.8,
+            ease: 'none',
+          },
+          0
+        )
 
-      tl.to(
-        contentHeadings_1,
-        {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'none',
-        },
-        0
-      )
+        .to(
+          contentHeadings_1,
+          {
+            opacity: 0,
+            duration: 0.8,
+            ease: 'none',
+          },
+          0
+        )
 
         .to(
           contentPs_1,
@@ -129,7 +138,7 @@ function fadeSlideOut(previousState, currentState) {
       })
 
       tl.to(ui_title, {
-        yPercent: 100,
+        yPercent: 20,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -185,7 +194,7 @@ function fadeSlideOut(previousState, currentState) {
       })
 
       tl.to(ui_title, {
-        yPercent: 100,
+        yPercent: 20,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,

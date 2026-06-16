@@ -115,7 +115,7 @@ void main() {
     vec2 noiseCoords = uv*vec2(4.0, 6.0);
 
     float noiseAmp = 60.0;
-    vec2 noiseFreq = 1.6 * vec2(0.8, 1.0);
+    vec2 noiseFreq = 1.2 * vec2(0.8, 1.0);
 
     float sNoise = max(0., snoise(vec3(noiseFreq * vec2(noiseCoords.x + 0.6 * u_time + u_seed, noiseCoords.y - 0.6 * u_time), u_time)));
 

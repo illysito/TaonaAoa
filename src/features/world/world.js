@@ -253,6 +253,7 @@ async function worldHome() {
   // click variables
   let isSphere = true
   let isRing = false
+  let clickRotation = { value: 0 }
 
   // Quaternion handling to make each plane look always to the FRONT
   const cameraQuat = new THREE.Quaternion()
@@ -262,6 +263,7 @@ async function worldHome() {
   function animate() {
     planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
     planeMaterial.uniforms.u_time.value = planeCounter
+    plane.rotation.z = Math.PI * 0.1 * Math.sin(0.25 * planeCounter)
 
     // Quaternion handling to make each plane look always to the FRONT
     camera.getWorldQuaternion(cameraQuat)
@@ -313,7 +315,8 @@ async function worldHome() {
     }
 
     // Whole sphere animation
-    sphereGroup.rotation.y = 1.2 * sphereCounter + 0.6 * dragRotationX
+    sphereGroup.rotation.y =
+      1.2 * sphereCounter + 0.6 * dragRotationX + clickRotation.value
     if (isSphere) {
       sphereGroup.rotation.x =
         -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
@@ -339,7 +342,7 @@ async function worldHome() {
     renderer.setSize(window.innerWidth, window.innerHeight)
   })
 
-  //-------------------------------------------------------------- Drag & Raycast Events --------------------------------------------------------------
+  // ------------------------------------------------------------- Drag & Raycast Events --------------------------------------------------------------
 
   let currentPlaneMesh = null
   // let isIntersecting = false
@@ -403,6 +406,11 @@ async function worldHome() {
           visible: false,
         })
       },
+    })
+    gsap.to(clickRotation, {
+      value: Math.PI / 8,
+      duration: 1.8,
+      ease: 'expo.inOut',
     })
   }
 

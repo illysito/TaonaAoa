@@ -16,6 +16,7 @@ function dotTrail() {
     })
     d.addEventListener('mouseleave', () => {
       if (i === activeIndex) return
+      if (actualDots[i].classList.contains('is--active')) return
       gsap.to(actualDots[i], {
         opacity: 0.25,
         duration: 0.1,

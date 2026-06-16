@@ -1,8 +1,5 @@
 import gsap from 'gsap'
-// import ScrollTrigger from 'gsap/ScrollTrigger'
 // import SplitType from 'split-type'
-
-// gsap.registerPlugin(ScrollTrigger)
 
 function fadeSlideIn(currentState) {
   const ui_section = document.querySelector('.ui-section')
@@ -17,6 +14,7 @@ function fadeSlideIn(currentState) {
 
   // SPLIT ELEMENTS INTO CORRESPONDING SLIDES
   const contentHeadings_1 = [contentHeadings[0], contentHeadings[1]]
+  console.log(contentHeadings_1)
   const contentPs_1 = [contentPs[0], contentPs[1]]
   const contentImgs_1 = [contentImgs[0]]
 
@@ -46,8 +44,8 @@ function fadeSlideIn(currentState) {
 
   // SWITCH!
 
-  const titleRevealDuration = 1.4
-  const titleRevealEase = 'expo.inOut'
+  const titleRevealDuration = 2
+  const titleRevealEase = 'power2.inOut'
 
   switch (currentState) {
     case 1: {
@@ -68,7 +66,7 @@ function fadeSlideIn(currentState) {
       ui_number.textContent = '01'
 
       tl.to(ui_title, {
-        yPercent: -100,
+        yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -127,7 +125,7 @@ function fadeSlideIn(currentState) {
       ui_number.textContent = '02'
 
       tl.to(ui_title, {
-        yPercent: -100,
+        yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -185,7 +183,7 @@ function fadeSlideIn(currentState) {
       ui_number.textContent = '03'
 
       tl.to(ui_title, {
-        yPercent: -100,
+        yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
