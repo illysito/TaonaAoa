@@ -24,6 +24,13 @@ function dotTrail() {
     })
     d.addEventListener('click', () => {
       activeIndex = i
+      window.dispatchEvent(
+        new CustomEvent('changeState', {
+          detail: {
+            state: activeIndex + 1,
+          },
+        })
+      )
       gsap.to(actualDots, {
         width: 6,
         height: 6,

@@ -132,6 +132,7 @@ async function worldHome() {
     const plane = new THREE.Mesh(geometry, material)
 
     plane.userData.name = PROJECTS[i].id
+    plane.userData.state = PROJECTS[i].state
     plane.userData.index = i
 
     sphereGroup.add(plane)
@@ -388,34 +389,6 @@ async function worldHome() {
   // Raycaster
 
   // OPACITY
-  function lowerPlanesOpacity() {
-    spherePlanes.forEach((plane) => {
-      if (plane !== currentPlaneMesh) {
-        gsap.to(plane.material, {
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power3.inOut',
-          // onComplete: () => (isMotionStopped = true),
-        })
-      } else {
-        gsap.to(plane.material, {
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power3.inOut',
-        })
-      }
-    })
-  }
-
-  function restorePlanesOpacity() {
-    spherePlanes.forEach((plane) => {
-      gsap.to(plane.material, {
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power3.inOut',
-      })
-    })
-  }
 
   // MOTION
   function expandSphere() {
@@ -433,7 +406,7 @@ async function worldHome() {
     })
   }
 
-  function restoreCircularMotion() {
+  function restoreSphere() {
     gsap.set(sphereGroup, {
       visible: true,
     })
@@ -446,24 +419,17 @@ async function worldHome() {
   }
 
   // PLANE SELECTION
-  // function putPlaneIntoView(plane) {
-  //   plane.userData.originalParent = plane.parent
-
-  //   plane.userData.originalPosition = plane.position.clone()
-  //   plane.userData.originalScale = plane.scale.clone()
-
-  //   stopCircularMotion()
-  // }
-
-  // function putPlaneBackIntoSphere() {}
-
   window.addEventListener('click', () => {
     if (currentPlaneMesh) {
-      // meaning if a plane is HOVERED when user clicks
-      lowerPlanesOpacity()
-      // stopCircularMotion()
       expandSphere()
       window.dispatchEvent(new Event('clearHero'))
+      window.dispatchEvent(
+        new CustomEvent('changeState', {
+          detail: {
+            state: currentPlaneMesh.userData.state,
+          },
+        })
+      )
     }
   })
 
@@ -481,8 +447,7 @@ async function worldHome() {
     }
 
     if (e.key.toLowerCase() === 't') {
-      restorePlanesOpacity()
-      restoreCircularMotion()
+      restoreSphere()
     }
   })
 }
