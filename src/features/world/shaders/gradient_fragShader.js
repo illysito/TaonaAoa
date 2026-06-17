@@ -45,7 +45,7 @@ void main()
 
   color *= 1.0 + 0.6 * random;
 
-  gl_FragColor = color;
+  gl_FragColor = color + 1.2 * vec4(vColor, 1.0);
 
 }
 `

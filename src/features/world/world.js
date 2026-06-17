@@ -5,7 +5,8 @@ import * as THREE from 'three'
 import PROJECTS, { ALPHA_MAP } from '../data/textures'
 // Shaders
 import frag from './shaders/gradient_fragShader'
-import vert from './shaders/gradient_vertexShader'
+// import vert from './shaders/gradient_vertexShader'
+import vert_2 from './shaders/gradient_vertexShader_2'
 
 async function worldHome() {
   // -------------------------------------------------------------- Setup --------------------------------------------------------------
@@ -49,23 +50,24 @@ async function worldHome() {
   const planeGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight,
-    300,
-    300
+    320,
+    320
   )
   const seed = Math.random() * 20
   console.log('Seed: ', seed)
   const planeMaterial = new THREE.ShaderMaterial({
     fragmentShader: frag,
-    vertexShader: vert,
+    vertexShader: vert_2,
     uniforms: {
       u_time: { value: 0 },
       u_seed: { value: seed },
     },
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  const planeScale = 2.4
+  const planeScale = 2.6
   plane.rotation.x = 0.1
   plane.rotation.z = Math.PI
+  plane.position.x = -100
   plane.scale.set(planeScale, planeScale, planeScale)
 
   // Avoid the plane from going OVER the SPHERE
@@ -263,7 +265,7 @@ async function worldHome() {
   function animate() {
     planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
     planeMaterial.uniforms.u_time.value = planeCounter
-    plane.rotation.z = Math.PI * 0.1 * Math.sin(0.25 * planeCounter)
+    plane.rotation.z = Math.PI * Math.cos(0.25 * planeCounter)
 
     // Quaternion handling to make each plane look always to the FRONT
     camera.getWorldQuaternion(cameraQuat)

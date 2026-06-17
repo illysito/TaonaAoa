@@ -231,13 +231,6 @@ function fadeSlideIn(currentState) {
       break
     }
   }
-  // Choose slides
-  // gsap.to(slide_section, {
-  //   delay: 1.32,
-  //   opacity: 1,
-  //   duration: 1.6,
-  //   ease: 'linear',
-  // })
 }
 
 export default fadeSlideIn

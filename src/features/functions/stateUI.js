@@ -7,19 +7,26 @@ function stateUI() {
   let previousState = 0
   let currentState = 0
 
+  let isAnimating = false
+
   // ---- Change state via THREE.JS & Dots
 
   window.addEventListener('changeState', (e) => {
-    currentState = e.detail.state
+    if (isAnimating) return
 
-    console.log('received event!')
+    currentState = e.detail.state
 
     if (currentState === previousState) return
 
-    // fadeSlideOut(previousState)
+    isAnimating = true
+
     fadeSlideOut(previousState, currentState)
 
     previousState = currentState
+
+    setTimeout(() => {
+      isAnimating = false
+    }, 2000)
   })
 }
 

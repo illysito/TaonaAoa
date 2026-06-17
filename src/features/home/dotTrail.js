@@ -5,9 +5,11 @@ function dotTrail() {
   const actualDots = [...document.querySelectorAll('.actual-dot')]
 
   let activeIndex = null
+  let isAnimating = false
 
   dots.forEach((d, i) => {
     d.addEventListener('mouseover', () => {
+      if (isAnimating) return
       gsap.to(actualDots[i], {
         opacity: 0.8,
         duration: 0.1,
@@ -15,6 +17,7 @@ function dotTrail() {
       })
     })
     d.addEventListener('mouseleave', () => {
+      if (isAnimating) return
       if (i === activeIndex) return
       if (actualDots[i].classList.contains('is--active')) return
       gsap.to(actualDots[i], {
@@ -24,7 +27,16 @@ function dotTrail() {
       })
     })
     d.addEventListener('click', () => {
+      if (isAnimating) return
+      isAnimating = true
       activeIndex = i
+
+      actualDots.forEach((dot) => {
+        if (dot.classList.contains('is--active')) {
+          dot.classList.remove('is--active')
+        }
+      })
+
       window.dispatchEvent(
         new CustomEvent('changeState', {
           detail: {
@@ -48,6 +60,10 @@ function dotTrail() {
         duration: 0.12,
         ease: 'none',
       })
+
+      setTimeout(() => {
+        isAnimating = false
+      }, 2000)
     })
   })
 
