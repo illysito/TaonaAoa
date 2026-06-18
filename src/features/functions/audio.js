@@ -52,7 +52,7 @@ function audio() {
     const typeFXs = [typeFX_1, typeFX_2, typeFX_3, typeFX_4]
 
     for (let i = 0; i < typeFXs.length; i++) {
-      typeFXs[i].volume = 0.2
+      typeFXs[i].volume = 0.32
     }
 
     ambient.loop = true
