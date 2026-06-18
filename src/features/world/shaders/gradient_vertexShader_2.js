@@ -121,30 +121,6 @@ void main() {
 
     pos.z += noiseAmp * sNoise;
 
-
-
-    // color
-    vec3 green = vec3(0.0, 0.8588, 0.2902);
-    vec3 blue = vec3(0.1451, 0.1490, 0.4235 + 0.06 * sin(2. * u_time));
-    vec3 black = vec3(0.02, 0.02, 0.02);
-
-    float n = 0.;
-    float initialCenter = 0.72; // (from 1 to 0.72)
-    float offsetAmplitude = 0.08; // (from 0.1 to 0.24)
-    float center = initialCenter + offsetAmplitude * sin(2. * u_time);
-    float thickness = 0.1 + 0.02 * clamp(sin(u_time), 0.0, 1.0);
-
-    for(int i = 0; i < 1; i++){
-      n += snoise(vec3(0.4 * noiseFreq * vec2(0.4 * noiseCoords.x + 0.82 * u_time + u_seed, 0.2 * noiseCoords.y - 0.12 * u_time), u_time));
-      float lines =
-      smoothstep(center - thickness, center, n) -
-      smoothstep(center, center + thickness, n);
-
-      // vec3 gradient = mix(black, blue, lines);
-      vColor = mix(black, green, lines);
-
-    }
-
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 
 }

@@ -17,8 +17,8 @@ function randomChar(input, proportion, duration) {
     types: 'words, chars',
   })
 
-  console.log(input)
-  console.log(split)
+  // console.log(input)
+  // console.log(split)
 
   const charPool = [
     '0',
@@ -77,7 +77,7 @@ function randomChar(input, proportion, duration) {
 
   // animation function
   function animateChars() {
-    console.log(selectedChars)
+    // console.log(selectedChars)
     selectedChars.forEach((char) => {
       let targetChar = char.textContent
       let i = 0
@@ -107,7 +107,7 @@ function randomChar(input, proportion, duration) {
           char.textContent = targetChar
           return
         }
-        console.log('ANIMATED')
+        // console.log('ANIMATED')
         setTimeout(tick, delay)
       }
       tick()

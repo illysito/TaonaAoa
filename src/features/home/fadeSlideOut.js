@@ -10,7 +10,8 @@ const contentPs = document.querySelectorAll('.content-p')
 const contentImgs = document.querySelectorAll('.content-img')
 // UI
 const ui_title = document.querySelector('.title-h')
-// const ui_highlight = document.querySelector('.green-highlight')
+const dot_trail_container = document.querySelector('.dot-trail-container')
+const actualDots = document.querySelectorAll('.actual-dot')
 
 // let splitHeadings = []
 // contentHeadings.forEach((h) => {
@@ -61,9 +62,24 @@ function fadeSlideOut(previousState, currentState) {
   const contentImgs_3 = [contentImgs[1]]
 
   // SWITCH
+  const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
   const titleRevealDuration = 1
-  const titleRevealEase = 'power2.inOut'
+  const titleRevealEase = spike
+
+  if (currentState == 0) {
+    gsap.to(dot_trail_container, {
+      // yPercent: 0,
+      opacity: 0,
+      duration: titleRevealDuration,
+      ease: titleRevealEase,
+      onComplete: () => {
+        actualDots.forEach((d) => {
+          d.classList.remove('is--active')
+        })
+      },
+    })
+  }
 
   switch (previousState) {
     case 0: {
@@ -75,7 +91,7 @@ function fadeSlideOut(previousState, currentState) {
     case 1: {
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log('finished')
+          // console.log('finished')
           fadeSlideIn(currentState)
         },
       })
@@ -132,7 +148,7 @@ function fadeSlideOut(previousState, currentState) {
     case 2: {
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log('finished')
+          // console.log('finished')
           fadeSlideIn(currentState)
         },
       })
@@ -188,7 +204,7 @@ function fadeSlideOut(previousState, currentState) {
     case 3: {
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log('finished')
+          // console.log('finished')
           fadeSlideIn(currentState)
         },
       })

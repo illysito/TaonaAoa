@@ -1,4 +1,7 @@
 import gsap from 'gsap'
+// import { CustomEase } from 'gsap/CustomEase'
+
+// gsap.registerPlugin(CustomEase)
 // import SplitType from 'split-type'
 
 function fadeSlideIn(currentState) {
@@ -10,11 +13,11 @@ function fadeSlideIn(currentState) {
   const contentImgs = document.querySelectorAll('.content-img')
   // UI
   const ui_title = document.querySelector('.title-h')
-  const ui_number = document.querySelector('.number-h')
+  // const ui_number = document.querySelector('.number-h')
 
   // SPLIT ELEMENTS INTO CORRESPONDING SLIDES
   const contentHeadings_1 = [contentHeadings[0], contentHeadings[1]]
-  console.log(contentHeadings_1)
+  // console.log(contentHeadings_1)
   const contentPs_1 = [contentPs[0], contentPs[1]]
   const contentImgs_1 = [contentImgs[0]]
 
@@ -43,9 +46,14 @@ function fadeSlideIn(currentState) {
   const contentImgs_3 = [contentImgs[1]]
 
   // SWITCH!
+  // CustomEase.create(
+  //   'spike',
+  //   'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
+  // )
+  const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
   const titleRevealDuration = 2
-  const titleRevealEase = 'power2.inOut'
+  const titleRevealEase = spike
 
   switch (currentState) {
     case 1: {
@@ -57,13 +65,13 @@ function fadeSlideIn(currentState) {
       // })
 
       const tl = gsap.timeline({
-        onComplete: () => {
-          console.log('finished')
-        },
+        // onComplete: () => {
+        //   console.log('finished')
+        // },
       })
 
       ui_title.textContent = 'TAONA AOA'
-      ui_number.textContent = '01'
+      // ui_number.textContent = '01'
 
       tl.to(ui_title, {
         yPercent: 0,
@@ -116,13 +124,13 @@ function fadeSlideIn(currentState) {
     }
     case 2: {
       const tl = gsap.timeline({
-        onComplete: () => {
-          console.log('finished')
-        },
+        // onComplete: () => {
+        //   console.log('finished')
+        // },
       })
 
       ui_title.textContent = 'WHY CANARIAS'
-      ui_number.textContent = '02'
+      // ui_number.textContent = '02'
 
       tl.to(ui_title, {
         yPercent: 0,
@@ -174,13 +182,13 @@ function fadeSlideIn(currentState) {
     }
     case 3: {
       const tl = gsap.timeline({
-        onComplete: () => {
-          console.log('finished')
-        },
+        // onComplete: () => {
+        //   console.log('finished')
+        // },
       })
 
       ui_title.textContent = 'LAUNCH IN EUROPE'
-      ui_number.textContent = '03'
+      // ui_number.textContent = '03'
 
       tl.to(ui_title, {
         yPercent: 0,

@@ -6,6 +6,9 @@ import SplitType from 'split-type'
 
 const heroHWrapper = document.querySelector('.hero-h-wrapper')
 const heroHeadings = document.querySelectorAll('.hero-h')
+const dot_trail_container = document.querySelector('.dot-trail-container')
+const arrowContainers = document.querySelectorAll('.arrow-container')
+const sideHeadings = document.querySelectorAll('.taona-h')
 const chars = []
 
 heroHeadings.forEach((h) => {
@@ -32,6 +35,16 @@ function clearHero() {
     scale: 0,
     duration: 2,
     ease: 'expo.inOut',
+  })
+  gsap.to([dot_trail_container, arrowContainers], {
+    opacity: 1,
+    duration: 1.4,
+    ease: 'linear',
+  })
+  gsap.to(sideHeadings, {
+    opacity: 0,
+    duration: 1.4,
+    ease: 'linear',
   })
   gsap.to(chars, {
     delay: 0.2,

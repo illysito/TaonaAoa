@@ -54,7 +54,7 @@ async function worldHome() {
     320
   )
   const seed = Math.random() * 20
-  console.log('Seed: ', seed)
+  // console.log('Seed: ', seed)
   const planeMaterial = new THREE.ShaderMaterial({
     fragmentShader: frag,
     vertexShader: vert_2,
@@ -64,7 +64,7 @@ async function worldHome() {
     },
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  const planeScale = 2.6
+  const planeScale = 2.4
   plane.rotation.x = 0.1
   plane.rotation.z = Math.PI
   plane.position.x = -100
@@ -365,7 +365,7 @@ async function worldHome() {
 
     if (intersects.length > 0) {
       currentPlaneMesh = intersects[0].object
-      console.log(currentPlaneMesh.userData.name)
+      // console.log(currentPlaneMesh.userData.name)
     } else {
       currentPlaneMesh = null
     }
@@ -399,9 +399,9 @@ async function worldHome() {
   function expandSphere() {
     // ZOOM IN AGGRESSIVE
     gsap.to(sphereGroup.position, {
-      z: 840,
+      z: 900,
       // scale: 2.8,
-      duration: 1.8,
+      duration: 2,
       ease: 'expo.inOut',
       onComplete: () => {
         gsap.set(sphereGroup, {
@@ -423,7 +423,7 @@ async function worldHome() {
     gsap.to(sphereGroup.position, {
       z: 80,
       // scale: 1,
-      duration: 1.8,
+      duration: 2,
       ease: 'expo.inOut',
     })
   }
@@ -446,6 +446,8 @@ async function worldHome() {
           },
         })
       )
+    } else {
+      console.log('Clicked outside any plane')
     }
   })
 
@@ -463,6 +465,13 @@ async function worldHome() {
     }
 
     if (e.key.toLowerCase() === 't') {
+      restoreSphere()
+    }
+  })
+
+  window.addEventListener('changeState', (e) => {
+    // console.log(e.detail.state)
+    if (e.detail.state == 0) {
       restoreSphere()
     }
   })
