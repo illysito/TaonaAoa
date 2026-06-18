@@ -17,6 +17,8 @@ function audio() {
   if (isDesktop()) {
     let audio = document.querySelector('#taona-ambient')
 
+    audio.volume = 0.2
+
     const button = document.querySelector('.audio-button')
     const audioBall = button.firstElementChild
     const audioAccepted = localStorage.getItem('audioAccepted')
