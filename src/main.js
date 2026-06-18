@@ -1,4 +1,5 @@
 // FUNCTIONS
+import audio from './features/functions/audio'
 import stateUI from './features/functions/stateUI'
 // HOME
 import clearHero from './features/home/clearHero'
@@ -17,6 +18,7 @@ nav()
 dotTrail()
 footer()
 stateUI()
+audio()
 
 window.addEventListener('clearHero', () => {
   clearHero()

@@ -158,7 +158,11 @@ void main()
 
   }
 
-  float cycle = fract(0.6 *  u_time / (1.6 + 0.4 * sin(0.5 * u_time)));
+  float u_cycleTime = 1.6;
+  float u_cycleSpeed = 0.6;
+  u_cycleTime = 0.1;
+  u_cycleSpeed = 0.1;
+  float cycle = fract(0.1 * u_time / (u_cycleTime + 0.4 * abs(sin(0.5 * u_time))));
   float phase = 0.3 * sin(cycle * PI);
   // float cycleId = floor(u_time * 0.25);
   // float seed = hash12(vec2(cycleId, 0.0));
