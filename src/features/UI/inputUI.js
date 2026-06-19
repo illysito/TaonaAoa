@@ -17,7 +17,7 @@ export function activateDot(i) {
 }
 
 function inputUI() {
-  // const arrowContainers = [...document.querySelectorAll('.arrow-container')]
+  const arrowContainers = [...document.querySelectorAll('.arrow-container')]
 
   //#region NAV
   const logoImg = document.querySelector('.logo-img')
@@ -102,90 +102,152 @@ function inputUI() {
   //#endregion
 
   //#region ARROWS
-  // arrowContainers.forEach((a, i) => {
-  //   // Arrow hover
-  //   a.addEventListener('mouseover', () => {
-  //     if (isAnimating) return
-  //     gsap.to(a, {
-  //       opacity: 0.98,
-  //       scale: 0.98,
-  //       duration: 0.1,
-  //       ease: 'none',
-  //     })
-  //   })
-  //   a.addEventListener('mouseleave', () => {
-  //     if (isAnimating) return
-  //     gsap.to(a, {
-  //       opacity: 1,
-  //       scale: 1,
-  //       duration: 0.1,
-  //       ease: 'none',
-  //     })
-  //   })
-  //   // Arrow click
-  //   a.addEventListener('click', () => {
-  //     if (isAnimating) return
-  //     isAnimating = true
+  arrowContainers.forEach((a, i) => {
+    // Arrow hover
+    a.addEventListener('mouseover', () => {
+      if (getIsTransitioning()) return
+      gsap.to(a, {
+        opacity: 0.98,
+        scale: 0.98,
+        duration: 0.1,
+        ease: 'none',
+      })
+    })
+    a.addEventListener('mouseleave', () => {
+      if (getIsTransitioning()) return
+      gsap.to(a, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.1,
+        ease: 'none',
+      })
+    })
+    // Arrow click
+    a.addEventListener('click', () => {
+      if (getIsTransitioning()) return
 
-  //     if (i === 0) {
-  //       activeIndex -= 1
-  //       if (activeIndex == 0) {
-  //         activeIndex = 6
-  //       }
-  //     } else {
-  //       activeIndex += 1
-  //       if (activeIndex == 7) {
-  //         activeIndex = 1
-  //       }
-  //     }
+      let goTo = getCurrentState()
 
-  //     console.log('active index', activeIndex)
+      if (i === 0) {
+        // left
+        goTo -= 1
+        if (goTo == 0) {
+          goTo = 6
+        }
+      } else {
+        // right
+        goTo += 1
+        if (goTo == 7) {
+          goTo = 1
+        }
+      }
 
-  //     // arrow animation
-  //     gsap.to(a, {
-  //       opacity: 0.92,
-  //       scale: 0.98,
-  //       duration: 0.1,
-  //       ease: 'none',
-  //       onComplete: () => {
-  //         gsap.to(a, {
-  //           opacity: 0.98,
-  //           scale: 0.98,
-  //           duration: 0.1,
-  //           ease: 'none',
-  //         })
-  //       },
-  //     })
+      console.log('should go to', goTo)
 
-  //     // dot animation
-  //     gsap.to(actualDots, {
-  //       scale: 1,
-  //       backgroundColor: '#d4d4d8',
-  //       opacity: 0.25,
-  //       duration: 0.12,
-  //       ease: 'none',
-  //     })
-  //     gsap.to(actualDots[activeIndex - 1], {
-  //       scale: 1.8,
-  //       opacity: 1,
-  //       backgroundColor: '#00db4a',
-  //       duration: 0.12,
-  //       ease: 'none',
-  //     })
+      // arrow animation
+      gsap.to(a, {
+        opacity: 0.92,
+        scale: 0.98,
+        duration: 0.1,
+        ease: 'none',
+        onComplete: () => {
+          gsap.to(a, {
+            opacity: 0.98,
+            scale: 0.98,
+            duration: 0.1,
+            ease: 'none',
+          })
+        },
+      })
 
-  //     window.dispatchEvent(
-  //       new CustomEvent('changeState', {
-  //         detail: {
-  //           state: activeIndex + 1,
-  //         },
-  //       })
-  //     )
+      // dot animation
+      gsap.to(actualDots, {
+        scale: 1,
+        backgroundColor: '#d4d4d8',
+        opacity: 0.25,
+        duration: 0.12,
+        ease: 'none',
+      })
+      gsap.to(actualDots[goTo - 1], {
+        scale: 1.8,
+        opacity: 1,
+        backgroundColor: '#00db4a',
+        duration: 0.12,
+        ease: 'none',
+      })
 
-  //     setTimeout(() => {
-  //       isAnimating = false
-  //     }, 2000)
-  //   })
-  // })
+      changeState(goTo)
+    })
+  })
+
+  window.addEventListener('keydown', (e) => {
+    if (getIsTransitioning()) return
+    if (getCurrentState() == 0) return
+    let goTo = getCurrentState()
+    if (e.key === 'ArrowRight') {
+      // right
+      goTo += 1
+      if (goTo == 7) {
+        goTo = 1
+      }
+      // arrow animation
+      gsap.to(arrowContainers[1], {
+        opacity: 0.92,
+        scale: 0.98,
+        duration: 0.1,
+        ease: 'none',
+        onComplete: () => {
+          gsap.to(arrowContainers[1], {
+            opacity: 0.98,
+            scale: 0.98,
+            duration: 0.1,
+            ease: 'none',
+          })
+        },
+      })
+    }
+
+    if (e.key === 'ArrowLeft') {
+      // left
+      goTo -= 1
+      if (goTo == 0) {
+        goTo = 6
+      }
+      // arrow
+      gsap.to(arrowContainers[0], {
+        opacity: 0.92,
+        scale: 0.98,
+        duration: 0.1,
+        ease: 'none',
+        onComplete: () => {
+          gsap.to(arrowContainers[0], {
+            opacity: 0.98,
+            scale: 0.98,
+            duration: 0.1,
+            ease: 'none',
+          })
+        },
+      })
+    }
+
+    // dot animation
+    gsap.to(actualDots, {
+      scale: 1,
+      backgroundColor: '#d4d4d8',
+      opacity: 0.25,
+      duration: 0.12,
+      ease: 'none',
+    })
+    gsap.to(actualDots[goTo - 1], {
+      scale: 1.8,
+      opacity: 1,
+      backgroundColor: '#00db4a',
+      duration: 0.12,
+      ease: 'none',
+    })
+
+    changeState(goTo)
+  })
   //#endregion
 
   //   window.addEventListener('clearHero', (e) => {

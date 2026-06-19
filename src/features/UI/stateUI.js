@@ -27,7 +27,9 @@ function stateUI() {
       delay = '+=0.2'
     }
 
-    masterTl.add(exitState(previousState)).add(enterState(currentState), delay)
+    masterTl
+      .add(exitState(previousState, currentState))
+      .add(enterState(currentState), delay)
   })
 }
 

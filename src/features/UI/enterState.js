@@ -82,12 +82,11 @@ function enterState(currentState) {
   console.log(currentSlide)
 
   const tl = gsap.timeline({
-    // onStart: () => {
-
-    // },
+    onStart: () => {
+      if (currentSlide) ui_title.textContent = ui_title_content
+    },
     onComplete: () => {
       if (currentSlide) {
-        ui_title.textContent = ui_title_content
         currentSlide.style.zIndex = 101
         currentSlide.style.pointerEvents = 'auto'
       }

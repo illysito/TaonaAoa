@@ -27,7 +27,7 @@ heroHeadings.forEach((h) => {
   chars.push(...split.chars)
 })
 
-function exitState(previousState) {
+function exitState(previousState, currentState) {
   // SWITCH
   const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
@@ -35,8 +35,13 @@ function exitState(previousState) {
   const titleRevealEase = spike
 
   let currentSlide = null
+  let ui_title_content = null
   function selectSlide() {
     switch (previousState) {
+      case 0: {
+        ui_title_content = '·'
+        break
+      }
       case 1: {
         currentSlide = document.querySelector('.slide_1')
         break
@@ -64,7 +69,40 @@ function exitState(previousState) {
     }
   }
   selectSlide()
-  console.log(currentSlide)
+  function selectTitle() {
+    switch (currentState) {
+      case 0: {
+        ui_title_content = '·'
+        break
+      }
+      case 1: {
+        ui_title_content = 'TAONA AOA'
+        break
+      }
+      case 2: {
+        ui_title_content = 'WHY CANARIAS'
+        break
+      }
+      case 3: {
+        ui_title_content = 'LAUNCH IN EUROPE'
+        break
+      }
+      case 4: {
+        ui_title_content = 'ONE OPERATIONAL INTERFACE'
+        break
+      }
+      case 5: {
+        ui_title_content = 'EUROPEAN FRAMEWORK'
+        break
+      }
+      case 6: {
+        ui_title_content = '0 CAPEX MODEL'
+        break
+      }
+    }
+  }
+  selectTitle()
+  // console.log(previousState)
 
   const tl = gsap.timeline({
     onStart: () => {
@@ -72,7 +110,11 @@ function exitState(previousState) {
         currentSlide.style.zIndex = 0
         currentSlide.style.pointerEvents = 'none'
       }
+      if (previousState == 0) {
+        ui_title.textContent = ui_title_content
+      }
     },
+    onComplete: () => {},
   })
 
   switch (previousState) {
