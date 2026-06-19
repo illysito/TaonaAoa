@@ -3,6 +3,10 @@ import * as THREE from 'three'
 
 // Data
 import PROJECTS, { ALPHA_MAP } from '../data/textures'
+// Functions
+import { activateDot } from '../UI/inputUI'
+import { changeState } from '../UI/stateStore'
+import { getIsTransitioning } from '../UI/stateStore'
 // Shaders
 import frag from './shaders/gradient_fragShader'
 // import vert from './shaders/gradient_vertexShader'
@@ -430,22 +434,10 @@ async function worldHome() {
 
   // PLANE SELECTION
   window.addEventListener('click', () => {
-    if (currentPlaneMesh) {
+    if (currentPlaneMesh && !getIsTransitioning()) {
       expandSphere()
-      window.dispatchEvent(
-        new CustomEvent('clearHero', {
-          detail: {
-            state: currentPlaneMesh.userData.state,
-          },
-        })
-      )
-      window.dispatchEvent(
-        new CustomEvent('changeState', {
-          detail: {
-            state: currentPlaneMesh.userData.state,
-          },
-        })
-      )
+      changeState(currentPlaneMesh.userData.state)
+      activateDot(currentPlaneMesh.userData.state)
     } else {
       console.log('Clicked outside any plane')
     }
@@ -470,8 +462,8 @@ async function worldHome() {
   })
 
   window.addEventListener('changeState', (e) => {
-    // console.log(e.detail.state)
-    if (e.detail.state == 0) {
+    console.log(e.detail)
+    if (e.detail.currentState == 0) {
       restoreSphere()
     }
   })

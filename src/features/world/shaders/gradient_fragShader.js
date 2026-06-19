@@ -111,7 +111,7 @@ void main()
 {
   vec2 uv = v_texcoord;
 
-  float random = hash12(0.5 *  gl_FragCoord.xy);
+  float random = hash12(0.5 * gl_FragCoord.xy);
 
   float u_zoom = 2. - 0.05 * u_seed;
 

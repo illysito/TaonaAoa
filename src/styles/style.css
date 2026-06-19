@@ -1,3 +1,8 @@
 .w-webflow-badge {
   display: none !important;
 }
+
+::selection {
+  color: #00db4a;
+  background: #000;
+}
