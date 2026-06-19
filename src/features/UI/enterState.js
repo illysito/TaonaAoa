@@ -4,11 +4,28 @@ import gsap from 'gsap'
 import { chars } from './exitState.js'
 
 // SLIDES
+// 1
 const slide1 = document.querySelector('.slide_1')
+// 2
 const slide2 = document.querySelector('.slide_2')
+// const imageWrapper2 = slide2.querySelector('.left-column-2')
+// const titleRow2 = slide2.querySelector('.fc-title-row')
+// const contentRows2 = slide2.querySelectorAll('.fc-content-row')
+// const cardContainer2 = slide2.querySelector('.features-card-container')
+// const cardBulletPoints = cardContainer2.querySelectorAll('h2,p')
+// cardBulletPoints.forEach((b) => {
+//   gsap.set(b, {
+//     yPercent: -100,
+//     opacity: 0,
+//   })
+// })
+// 3
 const slide3 = document.querySelector('.slide_3')
+// 4
 const slide4 = document.querySelector('.slide_4')
+// 5
 const slide5 = document.querySelector('.slide_5')
+// 6
 const slide6 = document.querySelector('.slide_6')
 
 // UI
@@ -182,6 +199,50 @@ function enterState(currentState) {
         },
         0
       )
+
+      // tl.to(
+      //   imageWrapper2,
+      //   {
+      //     opacity: 1,
+      //     duration: 2,
+      //     ease: 'linear',
+      //   },
+      //   0
+      // )
+
+      // tl.to(
+      //   titleRow2,
+      //   {
+      //     opacity: 1,
+      //     duration: 0.8,
+      //     ease: spike,
+      //   },
+      //   0
+      // )
+
+      // tl.to(
+      //   contentRows2,
+      //   {
+      //     delay: 0.05,
+      //     opacity: 1,
+      //     duration: 0.8,
+      //     ease: spike,
+      //     stagger: 0.08,
+      //   },
+      //   0
+      // )
+
+      // tl.to(
+      //   cardBulletPoints,
+      //   {
+      //     opacity: 1,
+      //     yPercent: 0,
+      //     duration: 1,
+      //     ease: spike,
+      //     stagger: 0.08,
+      //   },
+      //   0
+      // )
 
       break
     }

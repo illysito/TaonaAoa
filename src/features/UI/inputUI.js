@@ -39,6 +39,18 @@ function inputUI() {
   logoImg.addEventListener('click', () => {
     console.log('should go to 0')
     changeState(0)
+    gsap.to(logoImg, {
+      scale: 0.94,
+      duration: 0.1,
+      ease: 'none',
+      onComplete: () => {
+        gsap.to(logoImg, {
+          scale: 0.98,
+          duration: 0.1,
+          ease: 'none',
+        })
+      },
+    })
   })
 
   //#endregion
@@ -147,7 +159,7 @@ function inputUI() {
       // arrow animation
       gsap.to(a, {
         opacity: 0.92,
-        scale: 0.98,
+        scale: 0.92,
         duration: 0.1,
         ease: 'none',
         onComplete: () => {
@@ -193,7 +205,7 @@ function inputUI() {
       // arrow animation
       gsap.to(arrowContainers[1], {
         opacity: 0.92,
-        scale: 0.98,
+        scale: 0.92,
         duration: 0.1,
         ease: 'none',
         onComplete: () => {

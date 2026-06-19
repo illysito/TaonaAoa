@@ -15,6 +15,7 @@ const ui_title = document.querySelector('.title-h')
 // HERO (SLIDE 0)
 const heroHWrapper = document.querySelector('.hero-h-wrapper')
 const heroHeadings = document.querySelectorAll('.hero-h')
+// const taonaHeadings = document.querySelectorAll('.taona-h')
 const UI_SECTION = document.querySelector('.ui-section')
 const sideHeadings = document.querySelectorAll('.taona-h')
 export const chars = []
@@ -136,7 +137,7 @@ function exitState(previousState, currentState) {
         .to(
           sideHeadings,
           {
-            opacity: 1,
+            opacity: 0,
             duration: 1.4,
             ease: 'linear',
           },
