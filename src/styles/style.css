@@ -7,10 +7,16 @@
   background: #000;
 }
 
-img {
+img,
+.hero-h,
+.taona-h {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
 
   -webkit-user-drag: none;
+}
+
+body {
+  cursor: none;
 }

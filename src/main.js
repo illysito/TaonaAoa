@@ -1,5 +1,6 @@
 // FUNCTIONS
 import audio from './features/functions/audio'
+import customCursor from './features/functions/customCursor'
 // HOME
 import footer from './features/home/footer'
 // UI
@@ -16,6 +17,7 @@ console.log('Taona Aoa')
 worldHome()
 footer()
 audio()
+customCursor()
 // UI
 stateUI()
 inputUI()

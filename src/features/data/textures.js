@@ -15,16 +15,16 @@ export const ALPHA_MAP = githubToJsDelivr(
 
 const TAONA_TEXTURES = [
   githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/fcaa5027789d09cf36c0c1f00aa71fab0c8fdbfa/textures/taona-gc.png'
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2036.webp'
   ),
   githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/fcaa5027789d09cf36c0c1f00aa71fab0c8fdbfa/textures/taona-hierro.png'
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Capa_1.webp'
   ),
   githubToJsDelivr(
     'https://github.com/illysito/TaonaAoa/blob/fcaa5027789d09cf36c0c1f00aa71fab0c8fdbfa/textures/taona-logo.png'
   ),
   githubToJsDelivr(
-    'https://github.com/illysito/TaonaAoa/blob/fcaa5027789d09cf36c0c1f00aa71fab0c8fdbfa/textures/taona-puerto.png'
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/FLEET%202%20copia%202.webp'
   ),
   githubToJsDelivr(
     'https://github.com/illysito/TaonaAoa/blob/fcaa5027789d09cf36c0c1f00aa71fab0c8fdbfa/textures/taona-cross.png'
@@ -41,6 +41,33 @@ const TAONA_TEXTURES = [
   githubToJsDelivr(
     'https://github.com/illysito/TaonaAoa/blob/5c585ad850898ea11395f0ca64616b95b94fb756/textures/taona-satellite.png'
   ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2037.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2038.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2039.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2040.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2041.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2042.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2044.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2045.webp'
+  ),
+  githubToJsDelivr(
+    'https://github.com/illysito/TaonaAoa/blob/0a9e56e965d8c1c849e2269c4a1bccf1962d74a2/textures/Frame%2046.webp'
+  ),
 ]
 
 const PROJECTS = [
@@ -53,20 +80,20 @@ const PROJECTS = [
   { id: 'encable_0', image: TAONA_TEXTURES[6], state: 1 },
   { id: 'jam_0', image: TAONA_TEXTURES[7], state: 2 },
   { id: 'ventana_0', image: TAONA_TEXTURES[8], state: 3 },
-  { id: 'buzo_0', image: TAONA_TEXTURES[0], state: 4 },
-  { id: 'ana_0', image: TAONA_TEXTURES[1], state: 5 },
-  { id: 'amber_0', image: TAONA_TEXTURES[2], state: 6 },
+  { id: 'buzo_0', image: TAONA_TEXTURES[9], state: 4 },
+  { id: 'ana_0', image: TAONA_TEXTURES[10], state: 5 },
+  { id: 'amber_0', image: TAONA_TEXTURES[11], state: 6 },
   {
     id: 'cofradia_0',
-    image: TAONA_TEXTURES[3],
+    image: TAONA_TEXTURES[12],
     state: 1,
   },
 
-  { id: 'ajodar_1', image: TAONA_TEXTURES[4], state: 1 },
-  { id: 'lilu_1', image: TAONA_TEXTURES[5], state: 2 },
-  { id: 'rafa_1', image: TAONA_TEXTURES[6], state: 3 },
-  { id: 'master_1', image: TAONA_TEXTURES[7], state: 4 },
-  { id: 'mambo_1', image: TAONA_TEXTURES[8], state: 5 },
+  { id: 'ajodar_1', image: TAONA_TEXTURES[13], state: 1 },
+  { id: 'lilu_1', image: TAONA_TEXTURES[14], state: 2 },
+  { id: 'rafa_1', image: TAONA_TEXTURES[15], state: 3 },
+  { id: 'master_1', image: TAONA_TEXTURES[16], state: 4 },
+  { id: 'mambo_1', image: TAONA_TEXTURES[17], state: 5 },
   { id: 'impulse_1', image: TAONA_TEXTURES[0], state: 6 },
   { id: 'encable_1', image: TAONA_TEXTURES[1], state: 1 },
   { id: 'jam_1', image: TAONA_TEXTURES[2], state: 2 },
@@ -77,15 +104,15 @@ const PROJECTS = [
   { id: 'ajodar_2', image: TAONA_TEXTURES[7], state: 1 },
 
   { id: 'lilu_2', image: TAONA_TEXTURES[8], state: 2 },
-  { id: 'rafa_2', image: TAONA_TEXTURES[0], state: 3 },
-  { id: 'master_2', image: TAONA_TEXTURES[1], state: 4 },
-  { id: 'mambo_2', image: TAONA_TEXTURES[2], state: 5 },
-  { id: 'impulse_2', image: TAONA_TEXTURES[3], state: 6 },
-  { id: 'encable_2', image: TAONA_TEXTURES[4], state: 1 },
-  { id: 'jam_2', image: TAONA_TEXTURES[6], state: 2 },
-  { id: 'ventana_2', image: TAONA_TEXTURES[5], state: 3 },
-  { id: 'buzo_2', image: TAONA_TEXTURES[7], state: 4 },
-  { id: 'ana_2', image: TAONA_TEXTURES[8], state: 5 },
+  { id: 'rafa_2', image: TAONA_TEXTURES[9], state: 3 },
+  { id: 'master_2', image: TAONA_TEXTURES[10], state: 4 },
+  { id: 'mambo_2', image: TAONA_TEXTURES[11], state: 5 },
+  { id: 'impulse_2', image: TAONA_TEXTURES[12], state: 6 },
+  { id: 'encable_2', image: TAONA_TEXTURES[13], state: 1 },
+  { id: 'jam_2', image: TAONA_TEXTURES[14], state: 2 },
+  { id: 'ventana_2', image: TAONA_TEXTURES[15], state: 3 },
+  { id: 'buzo_2', image: TAONA_TEXTURES[16], state: 4 },
+  { id: 'ana_2', image: TAONA_TEXTURES[17], state: 5 },
   { id: 'amber_2', image: TAONA_TEXTURES[0], state: 6 },
   { id: 'cofradia_2', image: TAONA_TEXTURES[1], state: 1 },
   { id: 'jam_2', image: TAONA_TEXTURES[2], state: 2 },
@@ -96,16 +123,16 @@ const PROJECTS = [
   { id: 'master_3', image: TAONA_TEXTURES[6], state: 6 },
   { id: 'mambo_3', image: TAONA_TEXTURES[7], state: 1 },
   { id: 'impulse_3', image: TAONA_TEXTURES[8], state: 2 },
-  { id: 'encable_3', image: TAONA_TEXTURES[0], state: 3 },
-  { id: 'jam_3', image: TAONA_TEXTURES[1], state: 4 },
-  { id: 'ventana_3', image: TAONA_TEXTURES[2], state: 5 },
-  { id: 'buzo_3', image: TAONA_TEXTURES[3], state: 6 },
-  { id: 'ana_3', image: TAONA_TEXTURES[4], state: 1 },
-  { id: 'amber_3', image: TAONA_TEXTURES[5], state: 2 },
-  { id: 'ajodar_4', image: TAONA_TEXTURES[6], state: 3 },
+  { id: 'encable_3', image: TAONA_TEXTURES[9], state: 3 },
+  { id: 'jam_3', image: TAONA_TEXTURES[10], state: 4 },
+  { id: 'ventana_3', image: TAONA_TEXTURES[11], state: 5 },
+  { id: 'buzo_3', image: TAONA_TEXTURES[12], state: 6 },
+  { id: 'ana_3', image: TAONA_TEXTURES[13], state: 1 },
+  { id: 'amber_3', image: TAONA_TEXTURES[14], state: 2 },
+  { id: 'ajodar_4', image: TAONA_TEXTURES[15], state: 3 },
 
-  { id: 'lilu_4', image: TAONA_TEXTURES[7], state: 4 },
-  { id: 'rafa_4', image: TAONA_TEXTURES[8], state: 5 },
+  { id: 'lilu_4', image: TAONA_TEXTURES[16], state: 4 },
+  { id: 'rafa_4', image: TAONA_TEXTURES[17], state: 5 },
   { id: 'master_4', image: TAONA_TEXTURES[0], state: 6 },
   { id: 'mambo_4', image: TAONA_TEXTURES[1], state: 1 },
   { id: 'impulse_4', image: TAONA_TEXTURES[2], state: 2 },
