@@ -110,6 +110,8 @@ function enterState(currentState) {
     },
   })
 
+  let opacityEase = 'power3.inOut'
+
   switch (currentState) {
     case 0: {
       tl.to(heroHWrapper, {
@@ -122,7 +124,7 @@ function enterState(currentState) {
           {
             opacity: 0,
             duration: 1.4,
-            ease: 'linear',
+            ease: opacityEase,
           },
           0
         )
@@ -131,7 +133,7 @@ function enterState(currentState) {
           {
             opacity: 1,
             duration: 1.4,
-            ease: 'linear',
+            ease: opacityEase,
           },
           0
         )
@@ -154,7 +156,7 @@ function enterState(currentState) {
         backgroundColor: '#d4d4d8',
         opacity: 0.25,
         duration: 0.12,
-        ease: 'none',
+        ease: opacityEase,
       })
       actualDots.forEach((d) => {
         d.classList.remove('is--active')
@@ -175,7 +177,7 @@ function enterState(currentState) {
         {
           opacity: 1,
           duration: 0.8,
-          ease: 'none',
+          ease: opacityEase,
         },
         0
       )
@@ -195,7 +197,7 @@ function enterState(currentState) {
         {
           opacity: 1,
           duration: 0.8,
-          ease: 'none',
+          ease: opacityEase,
         },
         0
       )
@@ -259,7 +261,7 @@ function enterState(currentState) {
         {
           opacity: 1,
           duration: 0.8,
-          ease: 'none',
+          ease: opacityEase,
         },
         0
       )
@@ -279,7 +281,7 @@ function enterState(currentState) {
         {
           opacity: 1,
           duration: 0.8,
-          ease: 'none',
+          ease: opacityEase,
         },
         0
       )
@@ -299,7 +301,7 @@ function enterState(currentState) {
         {
           opacity: 1,
           duration: 0.8,
-          ease: 'none',
+          ease: opacityEase,
         },
         0
       )
@@ -319,7 +321,7 @@ function enterState(currentState) {
         {
           opacity: 1,
           duration: 0.8,
-          ease: 'none',
+          ease: opacityEase,
         },
         0
       )
