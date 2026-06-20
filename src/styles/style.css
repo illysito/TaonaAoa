@@ -6,3 +6,11 @@
   color: #00db4a;
   background: #000;
 }
+
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+
+  -webkit-user-drag: none;
+}

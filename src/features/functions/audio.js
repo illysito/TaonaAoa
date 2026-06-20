@@ -18,6 +18,7 @@ function audio() {
   const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
   const footerPs = document.querySelectorAll('.footer-p')
+  const contactP = document.querySelector('.contact-p')
 
   function isDesktop() {
     return window.innerWidth >= 992
@@ -27,7 +28,9 @@ function audio() {
 
   if (isDesktop()) {
     const ambient = new Audio(
-      'https://cdn.jsdelivr.net/gh/illysito/TaonaAoa@cc868d6ae60bb39ca67f20ffd0ade0e4367c234b/web-audio/TaonaAoa-Ambient.opus'
+      githubToJsDelivr(
+        'https://github.com/illysito/TaonaAoa/blob/f8c31047f109d28e721c8b4c530af60e7475bcd0/web-audio/TaonaAoaLoop.opus'
+      )
     )
     const typeFX_1 = new Audio(
       githubToJsDelivr(
@@ -56,7 +59,7 @@ function audio() {
     }
 
     ambient.loop = true
-    ambient.volume = 0.1
+    ambient.volume = 0
 
     const button = document.querySelector('.audio-button')
     const audioBall = button.firstElementChild
@@ -68,6 +71,10 @@ function audio() {
       button.addEventListener('click', () => {
         if (ambient.paused) {
           audioIsOn = true
+          gsap.to(ambient, {
+            volume: 0.32,
+            duration: 0.4,
+          })
           // localStorage.setItem('audioAccepted', 'true')
           ambient.play()
           console.log('audio played')
@@ -89,7 +96,16 @@ function audio() {
         } else {
           // localStorage.setItem('audioAccepted', 'false')
           audioIsOn = false
-          ambient.pause()
+          const r = Math.floor(4 * Math.random())
+          const fx = typeFXs[r]
+          fx.play()
+          gsap.to(ambient, {
+            volume: 0,
+            duration: 0.4,
+            onComplete: () => {
+              ambient.pause()
+            },
+          })
           console.log('audio paused')
           gsap.to(audioBall, {
             x: 4,
@@ -128,6 +144,13 @@ function audio() {
           fx.play()
         }
       })
+    })
+    contactP.addEventListener('mouseenter', () => {
+      if (audioIsOn) {
+        const r = Math.floor(4 * Math.random())
+        const fx = typeFXs[r]
+        fx.play()
+      }
     })
   }
 }

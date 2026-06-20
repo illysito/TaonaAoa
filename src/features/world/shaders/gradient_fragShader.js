@@ -5,6 +5,10 @@ precision highp float;
 
 uniform float u_time;
 uniform float u_seed;
+uniform float u_cycleTime;
+uniform float u_cycleSpeed;
+uniform float u_powerFactor;
+uniform float u_blueFactor; 
 uniform vec2 u_resolution;
 
 varying vec2 v_texcoord;
@@ -117,7 +121,7 @@ void main()
 
   vec4 white = vec4(0.98, 0.96, 0.94, 1.0);
   vec4 black = vec4(0.02, 0.02, 0.02, 1.0);
-  vec4 blue = vec4(0.1451, 0.1490, 0.4235 + 0.06 * sin(2. * u_time), 1.0);
+  vec4 blue = vec4(0.1451, 0.1490, u_blueFactor + 0.06 * sin(2. * u_time), 1.0);
   vec4 green = vec4(0.0, 0.8588, 0.2902, 1.0);
   vec4 red = vec4(0.7 + 0.16 * sin(2. * u_time), 0.15, 0.15, 1.0);
   float horizontalMixer = smoothstep(0.1, 0.4, u_zoom * uv.x * uv.y) - smoothstep(0.55, 0.95, uv.x);
@@ -158,8 +162,8 @@ void main()
 
   }
 
-  float u_cycleTime = 1.2;
-  float u_cycleSpeed = 0.4;
+  // float u_cycleTime = 1.2;
+  // float u_cycleSpeed = 0.4
   // u_cycleTime = 0.1;
   // u_cycleSpeed = 0.1;
   float cycle = fract(u_cycleSpeed * u_time / (u_cycleTime + 0.4 * abs(sin(0.5 * u_time))));
@@ -169,7 +173,7 @@ void main()
 
   float pulse = pow(
     abs(sin(26. * phase * uv.x * uv.y)), 
-    24.
+    24. * u_powerFactor
   );
 
   // greenLayer += 0.1 * random;

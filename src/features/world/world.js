@@ -12,7 +12,16 @@ import frag from './shaders/gradient_fragShader'
 // import vert from './shaders/gradient_vertexShader'
 import vert_2 from './shaders/gradient_vertexShader_2'
 
+const UNIFORMS = {
+  u_cycleSpeed: { value: 0.0 },
+  u_cycleTime: { value: 0.0 },
+  u_powerFactor: { value: 4.0 },
+  u_blueFactor: { value: 0.4235 },
+}
+
 async function worldHome() {
+  //#region SETUP
+
   // -------------------------------------------------------------- Setup --------------------------------------------------------------
 
   const canvas = document.getElementById('canvas')
@@ -50,7 +59,12 @@ async function worldHome() {
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+  //#endregion
+
+  //#region BACKGROUND PLANE
+
   // -------------------------------------------------------------- Background Plane --------------------------------------------------------------
+
   const planeGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight,
@@ -65,6 +79,10 @@ async function worldHome() {
     uniforms: {
       u_time: { value: 0 },
       u_seed: { value: seed },
+      u_cycleTime: { value: UNIFORMS.u_cycleTime.value },
+      u_cycleSpeed: { value: UNIFORMS.u_cycleSpeed.value },
+      u_powerFactor: { value: UNIFORMS.u_powerFactor.value },
+      u_blueFactor: { value: UNIFORMS.u_blueFactor.value },
     },
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
@@ -79,6 +97,10 @@ async function worldHome() {
   plane.material.depthWrite = false
   plane.material.depthTest = true
   scene.add(plane)
+
+  //#endregion
+
+  //#region TEXTURE LOADING
 
   // -------------------------------------------------------------- Load Textures --------------------------------------------------------------
 
@@ -110,6 +132,10 @@ async function worldHome() {
       project.texture = await loadTexture(project.image)
     })
   )
+
+  //#endregion
+
+  //#region SPHERE
 
   // -------------------------------------------------------------- Create Sphere --------------------------------------------------------------
 
@@ -241,6 +267,10 @@ async function worldHome() {
     }
   })
 
+  //#endregion
+
+  //#region LOOP
+
   // -------------------------------------------------------------- Loop --------------------------------------------------------------
 
   // normal counter
@@ -269,6 +299,10 @@ async function worldHome() {
   function animate() {
     planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
     planeMaterial.uniforms.u_time.value = planeCounter
+    planeMaterial.uniforms.u_cycleSpeed.value = UNIFORMS.u_cycleSpeed.value
+    planeMaterial.uniforms.u_cycleTime.value = UNIFORMS.u_cycleTime.value
+    planeMaterial.uniforms.u_powerFactor.value = UNIFORMS.u_powerFactor.value
+    planeMaterial.uniforms.u_blueFactor.value = UNIFORMS.u_blueFactor.value
     plane.rotation.z = Math.PI * Math.cos(0.25 * planeCounter)
 
     // Quaternion handling to make each plane look always to the FRONT
@@ -340,6 +374,10 @@ async function worldHome() {
   }
   animate()
 
+  //#endregion
+
+  //#region RESIZE
+
   // -------------------------------------------------------------- Resize --------------------------------------------------------------
 
   window.addEventListener('resize', () => {
@@ -348,14 +386,21 @@ async function worldHome() {
     renderer.setSize(window.innerWidth, window.innerHeight)
   })
 
+  //#endregion
+
+  //#region EVENTS
+
   // ------------------------------------------------------------- Drag & Raycast Events --------------------------------------------------------------
 
   let currentPlaneMesh = null
   // let isIntersecting = false
 
+  let pointerDownTime = 0
   window.addEventListener('pointerdown', (event) => {
+    pointerDownTime = performance.now()
     isDragging = true
     previousX = event.clientX
+    previousY = event.clientY
   })
 
   window.addEventListener('pointermove', (event) => {
@@ -369,6 +414,7 @@ async function worldHome() {
 
     if (intersects.length > 0) {
       currentPlaneMesh = intersects[0].object
+      // currentPlaneMesh.material.color.setRGB(1.4, 1.4, 1.4)
       // console.log(currentPlaneMesh.userData.name)
     } else {
       currentPlaneMesh = null
@@ -376,15 +422,27 @@ async function worldHome() {
 
     // DRAGGING LOGIC
 
-    if (!isDragging) return
+    // if (!isDragging) return
+    console.log(isDragging)
 
     const movementX = event.clientX - previousX
     const movementY = event.clientY - previousY
     previousX = event.clientX
     previousY = event.clientY
 
-    dragVelocityX += movementX * 0.00025
-    dragVelocityY += movementY * 0.000025
+    let velocityMultiplierX = 0
+    let velocityMultiplierY = 0
+
+    if (!isDragging) {
+      velocityMultiplierX = 0.00002
+      velocityMultiplierY = 0.000004
+    } else {
+      velocityMultiplierX = 0.00025
+      velocityMultiplierY = 0.000025
+    }
+
+    dragVelocityX += movementX * velocityMultiplierX
+    dragVelocityY += movementY * velocityMultiplierY
   })
 
   window.addEventListener('pointerup', () => {
@@ -434,12 +492,12 @@ async function worldHome() {
 
   // PLANE SELECTION
   window.addEventListener('click', () => {
+    const heldTime = performance.now() - pointerDownTime
+    if (heldTime > 180) return
     if (currentPlaneMesh && !getIsTransitioning()) {
       expandSphere()
       changeState(currentPlaneMesh.userData.state)
       activateDot(currentPlaneMesh.userData.state)
-    } else {
-      console.log('Clicked outside any plane')
     }
   })
 
@@ -467,6 +525,40 @@ async function worldHome() {
       restoreSphere()
     }
   })
+
+  window.addEventListener('updateGradients', (e) => {
+    const { cycleTime, cycleSpeed, powerFactor, blueFactor } = e.detail
+    gsap.to(UNIFORMS.u_cycleSpeed, {
+      value: cycleSpeed,
+      duration: 2.8,
+      ease: 'power2.inOut',
+    })
+    gsap.to(UNIFORMS.u_cycleTime, {
+      value: cycleTime,
+      duration: 2.8,
+      ease: 'power2.inOut',
+    })
+    gsap.to(UNIFORMS.u_powerFactor, {
+      value: powerFactor,
+      duration: 2.8,
+      ease: 'power2.inOut',
+    })
+    gsap.to(UNIFORMS.u_blueFactor, {
+      value: blueFactor,
+      duration: 4,
+      ease: 'power2.inOut',
+    })
+    console.log(
+      'speed: ',
+      cycleSpeed,
+      'time: ',
+      cycleTime,
+      'power: ',
+      powerFactor
+    )
+  })
+
+  //#endregion
 }
 
 export default worldHome
