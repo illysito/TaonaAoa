@@ -3,6 +3,7 @@ import audio from './features/functions/audio'
 import customCursor from './features/functions/customCursor'
 // HOME
 import footer from './features/home/footer'
+// import preloader from './features/home/preloader'
 // UI
 import inputUI from './features/UI/inputUI'
 import stateUI from './features/UI/stateUI'
@@ -13,6 +14,7 @@ import './styles/style.css'
 
 console.log('Taona Aoa')
 
+// preloader()
 // Home
 worldHome()
 footer()

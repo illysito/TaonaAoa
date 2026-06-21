@@ -176,6 +176,29 @@ async function worldHome() {
     spherePlanes.push(plane)
   }
 
+  // function layoutDot() {
+  //   // layout = 'sphere'
+
+  //   spherePlanes.forEach((plane) => {
+  //     // const phi = Math.acos(1 - (2 * i) / count)
+  //     // const theta = Math.PI * (1 + Math.sqrt(5)) * i
+
+  //     const target = new THREE.Vector3(0, 0, 0)
+
+  //     // plane.userData.basePosition = target.clone()
+  //     // plane.userData.heightFactor = 1 + target.y / radius
+
+  //     gsap.to(plane.position, {
+  //       x: target.x,
+  //       y: target.y,
+  //       z: target.z,
+  //       duration: 1,
+  //       ease: 'expo.inOut',
+  //     })
+  //   })
+  // }
+  // layoutDot()
+
   function layoutSphere() {
     // layout = 'sphere'
 
@@ -247,27 +270,6 @@ async function worldHome() {
   }
 
   // #region unused shapes!
-  // function layoutDot() {
-  //   // layout = 'sphere'
-
-  //   spherePlanes.forEach((plane) => {
-  //     // const phi = Math.acos(1 - (2 * i) / count)
-  //     // const theta = Math.PI * (1 + Math.sqrt(5)) * i
-
-  //     const target = new THREE.Vector3(0, 0, 0)
-
-  //     // plane.userData.basePosition = target.clone()
-  //     // plane.userData.heightFactor = 1 + target.y / radius
-
-  //     gsap.to(plane.position, {
-  //       x: target.x,
-  //       y: target.y,
-  //       z: target.z,
-  //       duration: 1,
-  //       ease: 'expo.inOut',
-  //     })
-  //   })
-  // }
 
   // function layoutSpiral() {
   //   const spiralRadius = window.innerHeight / 2
@@ -436,9 +438,11 @@ async function worldHome() {
   // ------------------------------------------------------------- Drag & Raycast Events --------------------------------------------------------------
 
   let currentPlaneMesh = null
+  let preloaderIsFinished = true
 
   // DRAGGING
   let pointerDownTime = 0
+  // let latestPlane = null
   window.addEventListener('pointerdown', (event) => {
     pointerDownTime = performance.now()
     isDragging = true
@@ -457,10 +461,21 @@ async function worldHome() {
 
     if (intersects.length > 0) {
       currentPlaneMesh = intersects[0].object
-      // currentPlaneMesh.material.color.setRGB(1.4, 1.4, 1.4)
-      // console.log(currentPlaneMesh.userData.name)
+      // latestPlane = currentPlaneMesh
+      // gsap.to(currentPlaneMesh.scale, {
+      //   x: 1.05,
+      //   y: 1.05,
+      //   duration: 0.4,
+      //   ease: 'power2.out',
+      // })
     } else {
       currentPlaneMesh = null
+      // gsap.to(latestPlane.scale, {
+      //   x: 1.05,
+      //   y: 1.05,
+      //   duration: 0.4,
+      //   ease: 'power2.out',
+      // })
     }
 
     // DRAGGING LOGIC
@@ -536,7 +551,7 @@ async function worldHome() {
   window.addEventListener('click', () => {
     const heldTime = performance.now() - pointerDownTime
     if (heldTime > 180) return
-    if (currentPlaneMesh && !getIsTransitioning()) {
+    if (currentPlaneMesh && !getIsTransitioning() && preloaderIsFinished) {
       expandSphere()
       if (isRing) {
         layoutSphere()
@@ -547,32 +562,6 @@ async function worldHome() {
   })
 
   // CIRCULARITY SELECTION
-  //#region KEYDOWN SHAPES
-  // window.addEventListener('keydown', (e) => {
-  //   if (e.key.toLowerCase() === 'r') {
-  //     layoutRing()
-
-  //     if (e == null) {
-  //       layoutDot()
-  //       layoutSpiral()
-  //     }
-  //     isSphere = false
-  //     isRing = true
-  //   }
-
-  //   if (e.key.toLowerCase() === 's') {
-  //     // layoutDot()
-  //     layoutSphere()
-  //     isSphere = true
-  //     isRing = false
-  //   }
-
-  //   if (e.key.toLowerCase() === 'c') {
-  //     // layoutDot()
-  //     layoutCylinder()
-  //   }
-  // })
-  //#endregion
   const button = document.querySelector('.circularity-button')
   const circBall = button.firstElementChild
   const toggleText = [...document.querySelectorAll('.is--toggle')][0]
@@ -654,6 +643,11 @@ async function worldHome() {
       'power: ',
       powerFactor
     )
+  })
+
+  window.addEventListener('preloaderIsFinished', () => {
+    layoutSphere()
+    preloaderIsFinished = true
   })
 
   //#endregion

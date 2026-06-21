@@ -20,6 +20,8 @@ function audio() {
   const footerPs = document.querySelectorAll('.footer-p')
   const contactP = document.querySelector('.contact-p')
 
+  // const circularButton = document.querySelector('.circular-button')
+
   // function isDesktop() {
   //   return window.innerWidth >= 992
   // }
@@ -179,6 +181,46 @@ function audio() {
       playFX()
     }
   })
+  // circularButton.addEventListener('click', () => {
+  //   if (ambient.paused) {
+  //     audioIsOn = true
+  //     gsap.to(ambient, {
+  //       volume: 0.32,
+  //       duration: 0.4,
+  //     })
+  //     // localStorage.setItem('audioAccepted', 'true')
+  //     ambient.play()
+  //     console.log('audio played')
+  //     gsap.to(audioBall, {
+  //       x: 26,
+  //       opacity: 1,
+  //       duration: 0.4,
+  //       ease: spike,
+  //     })
+  //     clickFX.play()
+  //     playFX()
+  //     randomChar(toggleText, 0.5, 18, '·ON·\u00A0')
+  //   } else {
+  //     audioIsOn = false
+  //     clickFX.play()
+  //     gsap.to(ambient, {
+  //       volume: 0,
+  //       duration: 0.4,
+  //       onComplete: () => {
+  //         ambient.pause()
+  //       },
+  //     })
+  //     console.log('audio paused')
+  //     gsap.to(audioBall, {
+  //       x: 4,
+  //       duration: 0.4,
+  //       opacity: 0.4,
+  //       ease: spike,
+  //     })
+  //     randomChar(toggleText, 0.5, 18, '·OFF·')
+  //   }
+  // })
+
   // }
 }
 
