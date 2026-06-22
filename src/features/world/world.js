@@ -383,6 +383,7 @@ async function worldHome() {
   let planeCounter = 0
   let sphereCounter = 0
   let preloaderIsFinished = false
+  let animationStarted = false
 
   // dragging variables
   let isDragging = false
@@ -407,7 +408,7 @@ async function worldHome() {
   window.dispatchEvent(new CustomEvent('worldReady', {}))
 
   function animate() {
-    // if (!preloaderIsFinished) return
+    if (!animationStarted) return
     planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
     planeMaterial.uniforms.u_time.value = planeCounter
     planeMaterial.uniforms.u_cycleSpeed.value = UNIFORMS.u_cycleSpeed.value
@@ -699,6 +700,8 @@ async function worldHome() {
       layoutSphere()
     }
     preloaderIsFinished = true
+    animationStarted = true
+    animate()
   })
 
   //#endregion
