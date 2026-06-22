@@ -100,7 +100,7 @@ function preloader() {
   button.addEventListener('click', () => {
     const tl = gsap.timeline()
     tl.to(circle, {
-      opacity: 0,
+      opacity: 0.42,
       strokeDashoffset: -circumference,
       duration: 2,
       ease: 'expo.inOut',
