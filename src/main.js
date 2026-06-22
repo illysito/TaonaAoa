@@ -14,11 +14,17 @@ import './styles/style.css'
 
 console.log('Taona Aoa')
 
+function isMobile() {
+  return window.matchMedia('(max-width: 667px)').matches
+}
+
 preloader()
 // Home
 worldHome()
 footer()
-audio()
+if (!isMobile()) {
+  audio()
+}
 // customCursor()
 // UI
 stateUI()
