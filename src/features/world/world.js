@@ -70,7 +70,7 @@ async function worldHome() {
 
   // -------------------------------------------------------------- Background Plane --------------------------------------------------------------
 
-  const segments = isMobile() ? 80 : 140
+  const segments = isMobile() ? 60 : 140
   const planeGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight,
