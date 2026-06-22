@@ -134,6 +134,8 @@ async function worldHome() {
     })
   )
 
+  window.dispatchEvent(new CustomEvent('texturesLoaded', {}))
+
   //#endregion
 
   //#region SPHERE
@@ -386,9 +388,12 @@ async function worldHome() {
     sphereCounter = (sphereCounter + 0.001) % 5000
 
     //   // Keep billboard position
-    sphereGroup.children.forEach((plane) => {
+    sphereGroup.children.forEach((plane, i) => {
       plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
 
+      plane.scale.x += 0.00012 * Math.sin(sphereCounter + i)
+      plane.scale.y += 0.00012 * Math.sin(sphereCounter + i)
+      plane.scale.z += 0.00012 * Math.sin(sphereCounter + i)
       // plane.position.x =
       //   plane.userData.basePosition.x +
       //   plane.userData.amp * Math.sin(plane.userData.freq * sphereCounter)

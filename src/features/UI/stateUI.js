@@ -22,7 +22,7 @@ function stateUI() {
     if (previousState == 0) {
       delay = '-=1.6'
     } else if (currentState == 0) {
-      delay = '=-1'
+      delay = '-=1'
     } else {
       delay = '+=0.2'
     }
