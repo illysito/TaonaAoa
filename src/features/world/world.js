@@ -20,6 +20,10 @@ const UNIFORMS = {
   u_blueFactor: { value: 0.4235 },
 }
 
+function isMobile() {
+  return window.matchMedia('(max-width: 667px)').matches
+}
+
 async function worldHome() {
   //#region SETUP
 
@@ -232,14 +236,29 @@ async function worldHome() {
   }
   // layoutSphere()
 
-  function layoutRing() {
-    const ringRadius = window.innerHeight / 3
+  function layoutRing(orientation) {
+    let yRotation = null
+    let radiusDivider = null
+    let excentricityX = null
+    if (orientation == 'vertical') {
+      yRotation = Math.PI * 0.38
+      radiusDivider = 5.2
+      excentricityX = 1.6
+    } else {
+      yRotation = 0
+      radiusDivider = 3
+      excentricityX = 1
+    }
+
+    const ringRadius = window.innerHeight / radiusDivider
+
+    sphereGroup.rotation.z = yRotation
 
     spherePlanes.forEach((plane, i) => {
       const angle = (i / count) * Math.PI * 2
 
       const target = new THREE.Vector3(
-        Math.cos(angle) * ringRadius,
+        Math.cos(angle) * ringRadius * excentricityX,
         Math.sin(angle) * ringRadius * -0.2,
         // (Math.sin(angle) * ringRadius * 0.8 * Math.PI) / 4,
         Math.sin(angle) * ringRadius
@@ -540,7 +559,7 @@ async function worldHome() {
 
   function restoreSphere() {
     if (isRing) {
-      layoutRing()
+      layoutRing('horizontal')
     }
     gsap.set(sphereGroup, {
       visible: true,
@@ -575,7 +594,7 @@ async function worldHome() {
 
   button.addEventListener('click', () => {
     if (isSphere) {
-      layoutRing()
+      layoutRing('horizontal')
       gsap.to(circBall, {
         x: 26,
         // opacity: 1,
@@ -652,7 +671,11 @@ async function worldHome() {
   })
 
   window.addEventListener('preloaderIsFinished', () => {
-    layoutSphere()
+    if (isMobile()) {
+      layoutRing('vertical')
+    } else {
+      layoutSphere()
+    }
     preloaderIsFinished = true
   })
 
