@@ -415,6 +415,7 @@ async function worldHome() {
       plane.scale.x += 0.00012 * Math.sin(sphereCounter + i)
       plane.scale.y += 0.00012 * Math.sin(sphereCounter + i)
       plane.scale.z += 0.00012 * Math.sin(sphereCounter + i)
+
       // plane.position.x =
       //   plane.userData.basePosition.x +
       //   plane.userData.amp * Math.sin(plane.userData.freq * sphereCounter)
@@ -428,8 +429,13 @@ async function worldHome() {
       1.2 * sphereCounter + 0.6 * dragRotationX + clickRotation.value
 
     if (isSphere) {
-      sphereGroup.rotation.x =
-        -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
+      if (isMobile()) {
+        sphereGroup.rotation.y = 2 * sphereCounter
+        sphereGroup.rotation.x = 0.6 * sphereCounter
+      } else {
+        sphereGroup.rotation.x =
+          -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
+      }
     } else if (isRing) {
       sphereGroup.rotation.x =
         -0.2 * Math.sin(1 * sphereCounter) + 1.6 * dragRotationY
