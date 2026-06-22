@@ -1,5 +1,5 @@
 // FUNCTIONS
-import audio from './features/functions/audio'
+// import audio from './features/functions/audio'
 // import customCursor from './features/functions/customCursor'
 // HOME
 import footer from './features/home/footer'
@@ -23,7 +23,9 @@ preloader()
 // worldHome()
 footer()
 if (!isMobile()) {
-  audio()
+  import('./features/functions/audio').then(({ default: audio }) => {
+    audio()
+  })
 }
 // customCursor()
 // UI
