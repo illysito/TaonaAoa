@@ -157,9 +157,9 @@ async function worldHome() {
   const spherePlanes = []
 
   // Create the planes with the textures
+  const geometry = new THREE.PlaneGeometry(planeSize, planeSize)
   for (let i = 0; i < count; i++) {
     const currentTexture = PROJECTS[i].texture
-    const geometry = new THREE.PlaneGeometry(planeSize, planeSize)
 
     const material = new THREE.MeshBasicMaterial({
       alphaMap: alphaMapTexture,
@@ -513,7 +513,7 @@ async function worldHome() {
     // DRAGGING LOGIC
 
     // if (!isDragging) return
-    console.log(isDragging)
+    // console.log(isDragging)
 
     const movementX = event.clientX - previousX
     const movementY = event.clientY - previousY
