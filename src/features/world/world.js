@@ -134,8 +134,6 @@ async function worldHome() {
     })
   )
 
-  window.dispatchEvent(new CustomEvent('texturesLoaded', {}))
-
   //#endregion
 
   //#region SPHERE
@@ -178,28 +176,27 @@ async function worldHome() {
     spherePlanes.push(plane)
   }
 
-  // function layoutDot() {
-  //   // layout = 'sphere'
+  async function layoutDot() {
+    // layout = 'sphere'
+    const zStep = 0.2
+    spherePlanes.forEach((plane, i) => {
+      // const phi = Math.acos(1 - (2 * i) / count)
+      // const theta = Math.PI * (1 + Math.sqrt(5)) * i
 
-  //   spherePlanes.forEach((plane) => {
-  //     // const phi = Math.acos(1 - (2 * i) / count)
-  //     // const theta = Math.PI * (1 + Math.sqrt(5)) * i
+      const target = new THREE.Vector3(0, 0, 0)
 
-  //     const target = new THREE.Vector3(0, 0, 0)
+      // plane.userData.basePosition = target.clone()
+      // plane.userData.heightFactor = 1 + target.y / radius
 
-  //     // plane.userData.basePosition = target.clone()
-  //     // plane.userData.heightFactor = 1 + target.y / radius
-
-  //     gsap.to(plane.position, {
-  //       x: target.x,
-  //       y: target.y,
-  //       z: target.z,
-  //       duration: 1,
-  //       ease: 'expo.inOut',
-  //     })
-  //   })
-  // }
-  // layoutDot()
+      gsap.to(plane.position, {
+        x: target.x,
+        y: target.y,
+        z: i * zStep,
+        duration: 1,
+        ease: 'expo.inOut',
+      })
+    })
+  }
 
   function layoutSphere() {
     // layout = 'sphere'
@@ -233,7 +230,7 @@ async function worldHome() {
       })
     })
   }
-  layoutSphere()
+  // layoutSphere()
 
   function layoutRing() {
     const ringRadius = window.innerHeight / 3
@@ -350,6 +347,7 @@ async function worldHome() {
   // normal counter
   let planeCounter = 0
   let sphereCounter = 0
+  let preloaderIsFinished = false
 
   // dragging variables
   let isDragging = false
@@ -370,7 +368,11 @@ async function worldHome() {
   const parentQuat = new THREE.Quaternion()
   const inverseParentQuat = new THREE.Quaternion()
 
+  await layoutDot()
+  window.dispatchEvent(new CustomEvent('worldReady', {}))
+
   function animate() {
+    // if (!preloaderIsFinished) return
     planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
     planeMaterial.uniforms.u_time.value = planeCounter
     planeMaterial.uniforms.u_cycleSpeed.value = UNIFORMS.u_cycleSpeed.value
@@ -443,7 +445,6 @@ async function worldHome() {
   // ------------------------------------------------------------- Drag & Raycast Events --------------------------------------------------------------
 
   let currentPlaneMesh = null
-  let preloaderIsFinished = true
 
   // DRAGGING
   let pointerDownTime = 0

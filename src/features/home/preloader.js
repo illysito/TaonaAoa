@@ -55,7 +55,7 @@ function preloader() {
     })
   })
 
-  window.addEventListener('texturesLoaded', () => {
+  window.addEventListener('worldReady', () => {
     isTexturesLoaded = true
   })
 }
