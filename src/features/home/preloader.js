@@ -18,14 +18,21 @@ function preloader() {
   // const header = document.querySelector('.preloader-h')
 
   let progress = 0
+  // console.log(progress)
   // let speed = 0.8
   let targetProgress = 0
   let isWorldReady = false
   let isReadyToRandomChar = false
 
   const circumference = circle.firstElementChild.getTotalLength()
+  // if (localStorage.getItem('preloaderHasBeenShown') === 'true') {
+  //   progress = 100
+  //   circle.style.strokeDasharray = 0
+  //   circle.style.strokeDashoffset = 0
+  // } else {
   circle.style.strokeDasharray = circumference
   circle.style.strokeDashoffset = circumference
+  // }
 
   function setProgress(percent, duration) {
     gsap.to(circle, {
@@ -117,6 +124,7 @@ function preloader() {
         })
       },
     })
+    localStorage.setItem('preloaderHasBeenShown', 'true')
   })
 
   window.addEventListener('worldReady', () => {
