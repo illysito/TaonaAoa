@@ -73,9 +73,18 @@ async function worldHome() {
   const segments = isMobile() ? 60 : 120
 
   const verticalSegments = segments
-  const horizontalSegments = Math.round(
-    (verticalSegments * window.innerWidth) / window.innerHeight
-  )
+  let horizontalSegments = 0
+
+  if (isMobile()) {
+    horizontalSegments = Math.round(
+      (verticalSegments * window.innerWidth) / window.innerHeight
+    )
+  } else {
+    horizontalSegments = 120
+  }
+
+  console.log('v ', verticalSegments)
+  console.log('h ', horizontalSegments)
 
   const planeGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
