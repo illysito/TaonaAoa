@@ -6,10 +6,13 @@ function preloader() {
   const button = document.querySelector('.circular-button')
   const preloaderSection = document.querySelector('.preloader-section')
   const circle = document.getElementById('loader-circle')
+  const heroH = document.querySelector('.hero-h')
+  const footer = document.querySelector('.footer-section')
+  const nav = document.querySelector('.nav')
   // const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
   gsap.to(circle, {
-    rotation: 235,
-    duration: 20,
+    rotation: 360,
+    duration: 18,
     ease: 'linear',
     repeat: -1,
   })
@@ -98,7 +101,7 @@ function preloader() {
     const tl = gsap.timeline()
     tl.to(circle, {
       opacity: 0,
-      strokeDashoffset: circumference,
+      strokeDashoffset: -circumference,
       duration: 2,
       ease: 'expo.inOut',
     })
@@ -124,6 +127,36 @@ function preloader() {
         })
       },
     })
+    tl.to(
+      heroH,
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'expo.inOut',
+      },
+      '<'
+    )
+    tl.to(
+      footer,
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'power2.inOut',
+      },
+      '<'
+    )
+    tl.to(
+      nav,
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'power2.inOut',
+      },
+      '<'
+    )
     localStorage.setItem('preloaderHasBeenShown', 'true')
   })
 
