@@ -87,8 +87,8 @@ async function worldHome() {
   console.log('h ', horizontalSegments)
 
   const planeGeometry = new THREE.PlaneGeometry(
-    window.innerWidth,
-    window.innerHeight,
+    canvas.innerWidth,
+    canvas.innerHeight,
     horizontalSegments,
     verticalSegments
   )
@@ -256,7 +256,7 @@ async function worldHome() {
     let yRotation = null
     let radiusDivider = null
     let excentricityX = null
-    if (orientation == 'vertical') {
+    if (orientation === 'vertical') {
       yRotation = Math.PI * 0.38
       radiusDivider = 5.2
       excentricityX = 1.6
@@ -415,7 +415,9 @@ async function worldHome() {
     planeMaterial.uniforms.u_cycleTime.value = UNIFORMS.u_cycleTime.value
     planeMaterial.uniforms.u_powerFactor.value = UNIFORMS.u_powerFactor.value
     planeMaterial.uniforms.u_blueFactor.value = UNIFORMS.u_blueFactor.value
-    plane.rotation.z = Math.PI * Math.cos(0.25 * planeCounter)
+    if (!isMobile()) {
+      plane.rotation.z = Math.PI * Math.cos(0.25 * planeCounter)
+    }
 
     // Quaternion handling to make each plane look always to the FRONT
     camera.getWorldQuaternion(cameraQuat)
@@ -656,7 +658,7 @@ async function worldHome() {
   // FROM OUTER SPACE
   window.addEventListener('changeState', (e) => {
     console.log(e.detail)
-    if (e.detail.currentState == 0) {
+    if (e.detail.currentState === 0) {
       restoreSphere()
     }
   })

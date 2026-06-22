@@ -111,7 +111,7 @@ function exitState(previousState, currentState) {
         currentSlide.style.zIndex = 0
         currentSlide.style.pointerEvents = 'none'
       }
-      if (previousState == 0) {
+      if (previousState === 0) {
         ui_title.textContent = ui_title_content
       }
     },
