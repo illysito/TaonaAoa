@@ -20,7 +20,7 @@ function isMobile() {
 
 preloader()
 // Home
-worldHome()
+// worldHome()
 footer()
 if (!isMobile()) {
   audio()
@@ -29,3 +29,9 @@ if (!isMobile()) {
 // UI
 stateUI()
 inputUI()
+
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    worldHome()
+  })
+})
