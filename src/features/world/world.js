@@ -70,12 +70,18 @@ async function worldHome() {
 
   // -------------------------------------------------------------- Background Plane --------------------------------------------------------------
 
-  const segments = isMobile() ? 60 : 140
+  const segments = isMobile() ? 60 : 100
+
+  const verticalSegments = segments
+  const horizontalSegments = Math.round(
+    (verticalSegments * window.innerWidth) / window.innerHeight
+  )
+
   const planeGeometry = new THREE.PlaneGeometry(
     window.innerWidth,
     window.innerHeight,
-    segments,
-    segments
+    horizontalSegments,
+    verticalSegments
   )
   const seed = Math.random() * 20
   // console.log('Seed: ', seed)
