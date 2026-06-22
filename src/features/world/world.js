@@ -87,8 +87,8 @@ async function worldHome() {
   console.log('h ', horizontalSegments)
 
   const planeGeometry = new THREE.PlaneGeometry(
-    canvas.innerWidth,
-    canvas.innerHeight,
+    canvas.clientWidth,
+    canvas.clientHeight,
     horizontalSegments,
     verticalSegments
   )
