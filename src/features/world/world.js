@@ -70,7 +70,7 @@ async function worldHome() {
 
   // -------------------------------------------------------------- Background Plane --------------------------------------------------------------
 
-  const segments = isMobile() ? 60 : 100
+  const segments = isMobile() ? 60 : 120
 
   const verticalSegments = segments
   const horizontalSegments = Math.round(
