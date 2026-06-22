@@ -466,7 +466,7 @@ async function worldHome() {
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
   }
-  animate()
+  // animate()
 
   //#endregion
 
