@@ -117,6 +117,7 @@ function inputUI() {
   arrowContainers.forEach((a, i) => {
     // Arrow hover
     a.addEventListener('mouseover', () => {
+      if (getCurrentState() == 0) return
       if (getIsTransitioning()) return
       gsap.to(a, {
         opacity: 0.98,
@@ -126,6 +127,7 @@ function inputUI() {
       })
     })
     a.addEventListener('mouseleave', () => {
+      if (getCurrentState() == 0) return
       if (getIsTransitioning()) return
       gsap.to(a, {
         opacity: 1,
