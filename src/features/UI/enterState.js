@@ -38,6 +38,7 @@ const heroHWrapper = document.querySelector('.hero-h-wrapper')
 // const heroHeadings = document.querySelectorAll('.hero-h')
 const UI_SECTION = document.querySelector('.ui-section')
 const sideHeadings = document.querySelectorAll('.taona-h')
+const arrowContainers = [...document.querySelectorAll('.arrow-container')]
 // const chars = []
 
 // heroHeadings.forEach((h) => {
@@ -160,6 +161,11 @@ function enterState(currentState) {
       })
       actualDots.forEach((d) => {
         d.classList.remove('is--active')
+      })
+      arrowContainers.forEach((arrow) => {
+        gsap.set(arrow, {
+          pointerEvents: 'none',
+        })
       })
 
       break

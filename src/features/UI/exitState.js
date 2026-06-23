@@ -19,6 +19,7 @@ const heroHeadings = document.querySelectorAll('.hero-h')
 const UI_SECTION = document.querySelector('.ui-section')
 const sideHeadings = document.querySelectorAll('.taona-h')
 export const chars = []
+const arrowContainers = [...document.querySelectorAll('.arrow-container')]
 
 heroHeadings.forEach((h) => {
   const split = new SplitType(h, {
@@ -157,6 +158,11 @@ function exitState(previousState, currentState) {
           },
           0
         )
+      arrowContainers.forEach((arrow) => {
+        gsap.set(arrow, {
+          pointerEvents: 'auto',
+        })
+      })
       break
     }
     case 1: {
