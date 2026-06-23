@@ -137,6 +137,7 @@ function inputUI() {
     // Arrow click
     a.addEventListener('click', () => {
       if (getIsTransitioning()) return
+      if (getCurrentState() == 0) return
 
       let goTo = getCurrentState()
 
