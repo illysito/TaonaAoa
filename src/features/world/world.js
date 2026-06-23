@@ -80,7 +80,7 @@ async function worldHome() {
       (verticalSegments * window.innerWidth) / window.innerHeight
     )
   } else {
-    horizontalSegments = 120
+    horizontalSegments = 140
   }
 
   console.log('v ', verticalSegments)
