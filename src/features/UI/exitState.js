@@ -4,10 +4,13 @@ import SplitType from 'split-type'
 // SLIDES
 const slide1 = document.querySelector('.slide_1')
 const slide2 = document.querySelector('.slide_2')
+const parallelImages = document.querySelectorAll('.parallel-img')
 const slide3 = document.querySelector('.slide_3')
 const slide4 = document.querySelector('.slide_4')
 const slide5 = document.querySelector('.slide_5')
+const islandsImages = document.querySelectorAll('.islands-img')
 const slide6 = document.querySelector('.slide_6')
+const tableImages = document.querySelectorAll('.table-img')
 
 // UI
 const ui_title = document.querySelector('.title-h')
@@ -31,10 +34,10 @@ heroHeadings.forEach((h) => {
 
 function exitState(previousState, currentState) {
   // SWITCH
-  const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
+  // const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
-  const titleRevealDuration = 1
-  const titleRevealEase = spike
+  const titleRevealDuration = 1.6
+  const titleRevealEase = 'power2.inOut'
 
   let currentSlide = null
   let ui_title_content = null
@@ -175,8 +178,8 @@ function exitState(previousState, currentState) {
         slide1,
         {
           opacity: 0,
-          duration: 0.8,
-          ease: 'none',
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
@@ -193,8 +196,27 @@ function exitState(previousState, currentState) {
         slide2,
         {
           opacity: 0,
-          duration: 0.8,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
+        },
+        0
+      )
+      tl.to(
+        [parallelImages[0], parallelImages[1]],
+        {
+          opacity: 0,
+          duration: titleRevealDuration,
           ease: 'none',
+          stagger: 0.4,
+        },
+        0
+      )
+      tl.to(
+        parallelImages[3],
+        {
+          scaleX: 0,
+          duration: titleRevealDuration,
+          ease: 'expo.inOut',
         },
         0
       )
@@ -211,8 +233,8 @@ function exitState(previousState, currentState) {
         slide3,
         {
           opacity: 0,
-          duration: 0.8,
-          ease: 'none',
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
@@ -228,8 +250,8 @@ function exitState(previousState, currentState) {
         slide4,
         {
           opacity: 0,
-          duration: 0.8,
-          ease: 'none',
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
@@ -245,8 +267,18 @@ function exitState(previousState, currentState) {
         slide5,
         {
           opacity: 0,
-          duration: 0.8,
-          ease: 'none',
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
+        },
+        0
+      )
+      tl.to(
+        islandsImages,
+        {
+          opacity: 0,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
+          // stagger: 0.4,
         },
         0
       )
@@ -262,11 +294,21 @@ function exitState(previousState, currentState) {
         slide6,
         {
           opacity: 0,
-          duration: 0.8,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
+        },
+        0
+      )
+      tl.to(
+        tableImages[0],
+        {
+          opacity: 0,
+          duration: titleRevealDuration,
           ease: 'none',
         },
         0
       )
+
       break
     }
   }

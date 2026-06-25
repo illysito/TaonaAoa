@@ -14,7 +14,7 @@ function stateUI() {
     const masterTl = gsap.timeline({
       onComplete: () => {
         completeTransition()
-        console.log('transition complete:', previousState, '→', currentState)
+        // console.log('transition complete:', previousState, '→', currentState)
       },
     })
 

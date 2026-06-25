@@ -8,25 +8,17 @@ import { chars } from './exitState.js'
 const slide1 = document.querySelector('.slide_1')
 // 2
 const slide2 = document.querySelector('.slide_2')
-// const imageWrapper2 = slide2.querySelector('.left-column-2')
-// const titleRow2 = slide2.querySelector('.fc-title-row')
-// const contentRows2 = slide2.querySelectorAll('.fc-content-row')
-// const cardContainer2 = slide2.querySelector('.features-card-container')
-// const cardBulletPoints = cardContainer2.querySelectorAll('h2,p')
-// cardBulletPoints.forEach((b) => {
-//   gsap.set(b, {
-//     yPercent: -100,
-//     opacity: 0,
-//   })
-// })
+const parallelImages = document.querySelectorAll('.parallel-img')
 // 3
 const slide3 = document.querySelector('.slide_3')
 // 4
 const slide4 = document.querySelector('.slide_4')
 // 5
 const slide5 = document.querySelector('.slide_5')
+const islandsImages = document.querySelectorAll('.islands-img')
 // 6
 const slide6 = document.querySelector('.slide_6')
+const tableImages = document.querySelectorAll('.table-img')
 
 // UI
 const ui_title = document.querySelector('.title-h')
@@ -48,13 +40,30 @@ const arrowContainers = [...document.querySelectorAll('.arrow-container')]
 
 //   chars.push(...split.chars)
 // })
+// pulsing map & table
+gsap.to(parallelImages[2], {
+  opacity: 1,
+  duration: 1.6,
+  ease: 'none',
+  repeat: -1,
+  yoyo: true,
+  repeatDelay: 0.6,
+})
+gsap.to(tableImages[1], {
+  opacity: 0.6,
+  duration: 1.6 * 2,
+  ease: 'none',
+  repeat: -1,
+  yoyo: true,
+  repeatDelay: 1,
+})
 
 function enterState(currentState) {
   console.log(chars)
-  const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
+  // const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
-  const titleRevealDuration = 2
-  const titleRevealEase = spike
+  const titleRevealDuration = 1.6
+  const titleRevealEase = 'power2.inOut'
 
   let currentSlide = null
   let ui_title_content = null
@@ -182,8 +191,8 @@ function enterState(currentState) {
         slide1,
         {
           opacity: 1,
-          duration: 0.8,
-          ease: opacityEase,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
@@ -202,55 +211,33 @@ function enterState(currentState) {
         slide2,
         {
           opacity: 1,
-          duration: 0.8,
-          ease: opacityEase,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
 
-      // tl.to(
-      //   imageWrapper2,
-      //   {
-      //     opacity: 1,
-      //     duration: 2,
-      //     ease: 'linear',
-      //   },
-      //   0
-      // )
+      tl.to(
+        [parallelImages[0], parallelImages[1]],
+        {
+          opacity: 1,
+          duration: titleRevealDuration / 2,
+          ease: 'none',
+          stagger: 0.4,
+        },
+        0
+      )
 
-      // tl.to(
-      //   titleRow2,
-      //   {
-      //     opacity: 1,
-      //     duration: 0.8,
-      //     ease: spike,
-      //   },
-      //   0
-      // )
-
-      // tl.to(
-      //   contentRows2,
-      //   {
-      //     delay: 0.05,
-      //     opacity: 1,
-      //     duration: 0.8,
-      //     ease: spike,
-      //     stagger: 0.08,
-      //   },
-      //   0
-      // )
-
-      // tl.to(
-      //   cardBulletPoints,
-      //   {
-      //     opacity: 1,
-      //     yPercent: 0,
-      //     duration: 1,
-      //     ease: spike,
-      //     stagger: 0.08,
-      //   },
-      //   0
-      // )
+      tl.to(
+        parallelImages[3],
+        {
+          opacity: 1,
+          scaleX: 1,
+          duration: titleRevealDuration,
+          ease: 'expo.inOut',
+        },
+        0
+      )
 
       break
     }
@@ -266,8 +253,8 @@ function enterState(currentState) {
         slide3,
         {
           opacity: 1,
-          duration: 0.8,
-          ease: opacityEase,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
@@ -286,8 +273,8 @@ function enterState(currentState) {
         slide4,
         {
           opacity: 1,
-          duration: 0.8,
-          ease: opacityEase,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
         },
         0
       )
@@ -306,8 +293,19 @@ function enterState(currentState) {
         slide5,
         {
           opacity: 1,
-          duration: 0.8,
-          ease: opacityEase,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
+        },
+        0
+      )
+
+      tl.to(
+        islandsImages,
+        {
+          opacity: 1,
+          duration: titleRevealDuration / 2,
+          ease: 'none',
+          stagger: 0.4,
         },
         0
       )
@@ -326,8 +324,17 @@ function enterState(currentState) {
         slide6,
         {
           opacity: 1,
-          duration: 0.8,
-          ease: opacityEase,
+          duration: titleRevealDuration,
+          ease: titleRevealEase,
+        },
+        0
+      )
+      tl.to(
+        tableImages[0],
+        {
+          opacity: 1,
+          duration: titleRevealDuration,
+          ease: 'none',
         },
         0
       )
