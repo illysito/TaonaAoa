@@ -511,6 +511,9 @@ async function worldHome() {
 
     if (intersects.length > 0) {
       currentPlaneMesh = intersects[0].object
+      if (preloaderIsFinished) {
+        document.body.style.cursor = 'pointer'
+      }
       // latestPlane = currentPlaneMesh
       // gsap.to(currentPlaneMesh.scale, {
       //   x: 1.05,
@@ -520,6 +523,7 @@ async function worldHome() {
       // })
     } else {
       currentPlaneMesh = null
+      document.body.style.cursor = 'default'
       // gsap.to(latestPlane.scale, {
       //   x: 1.05,
       //   y: 1.05,
