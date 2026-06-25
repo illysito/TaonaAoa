@@ -115,23 +115,34 @@ function inputUI() {
 
   //#region ARROWS
   arrowContainers.forEach((a, i) => {
+    const hoveredArrow = a.lastElementChild
     // Arrow hover
     a.addEventListener('mouseover', () => {
       if (getCurrentState() == 0) return
-      if (getIsTransitioning()) return
+      // if (getIsTransitioning()) return
       gsap.to(a, {
         opacity: 0.98,
         scale: 0.98,
         duration: 0.1,
         ease: 'none',
       })
+      gsap.to(hoveredArrow, {
+        opacity: 1,
+        duration: 0.1,
+        ease: 'none',
+      })
     })
     a.addEventListener('mouseleave', () => {
       if (getCurrentState() == 0) return
-      if (getIsTransitioning()) return
+      // if (getIsTransitioning()) return
       gsap.to(a, {
         opacity: 1,
         scale: 1,
+        duration: 0.1,
+        ease: 'none',
+      })
+      gsap.to(hoveredArrow, {
+        opacity: 0,
         duration: 0.1,
         ease: 'none',
       })

@@ -14,13 +14,14 @@ function audio() {
   // }
 
   let audioIsOn = false
+  let volumeMultiplier = 1.4
 
   const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
 
   const footerPs = document.querySelectorAll('.footer-p')
-  const contactP = document.querySelector('.contact-p')
+  const contactPs = document.querySelectorAll('.contact-p')
 
-  const circularButton = document.querySelector('.circular-button')
+  const preloaderH = document.querySelector('.preloader-h')
 
   // function isDesktop() {
   //   return window.innerWidth >= 992
@@ -62,7 +63,7 @@ function audio() {
   const typeFXs = [typeFX_1, typeFX_2, typeFX_3, typeFX_4]
 
   for (let i = 0; i < typeFXs.length; i++) {
-    typeFXs[i].volume = 0.2
+    typeFXs[i].volume = 0.2 * volumeMultiplier
   }
 
   function playFX() {
@@ -77,7 +78,7 @@ function audio() {
   ambient.loop = true
   ambient.volume = 0
 
-  clickFX.volume = 0.16
+  clickFX.volume = 0.16 * volumeMultiplier
 
   const audioButton = document.querySelector('.audio-button')
   const circularityButton = document.querySelector('.circularity-button')
@@ -85,6 +86,8 @@ function audio() {
   const audioBall = audioButton.firstElementChild
   // const audioAccepted = localStorage.getItem('audioAccepted')
   const toggleText = [...document.querySelectorAll('.is--toggle')][1]
+  const popUpButton = document.querySelector('.pop-up-button')
+  const closeButton = document.querySelector('.close-button')
 
   if (ambient) {
     // event listeners
@@ -92,7 +95,7 @@ function audio() {
       if (ambient.paused) {
         audioIsOn = true
         gsap.to(ambient, {
-          volume: 0.32,
+          volume: 0.32 * volumeMultiplier,
           duration: 0.4,
         })
         // localStorage.setItem('audioAccepted', 'true')
@@ -167,6 +170,22 @@ function audio() {
         // playFX()
       }
     })
+
+    popUpButton.addEventListener('click', () => {
+      if (audioIsOn) {
+        audioIsOn = true
+        clickFX.play()
+        // playFX()
+      }
+    })
+
+    closeButton.addEventListener('click', () => {
+      if (audioIsOn) {
+        audioIsOn = true
+        clickFX.play()
+        // playFX()
+      }
+    })
   }
 
   footerPs.forEach((p) => {
@@ -176,16 +195,19 @@ function audio() {
       }
     })
   })
-  contactP.addEventListener('mouseenter', () => {
-    if (audioIsOn) {
-      playFX()
-    }
+  contactPs.forEach((p) => {
+    p.addEventListener('mouseenter', () => {
+      if (audioIsOn) {
+        playFX()
+      }
+    })
   })
-  circularButton.addEventListener('click', () => {
+
+  preloaderH.addEventListener('click', () => {
     if (ambient.paused) {
       audioIsOn = true
       gsap.to(ambient, {
-        volume: 0.32,
+        volume: 0.32 * volumeMultiplier,
         duration: 0.4,
       })
       // localStorage.setItem('audioAccepted', 'true')

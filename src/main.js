@@ -3,6 +3,7 @@
 // import customCursor from './features/functions/customCursor'
 // HOME
 import footer from './features/home/footer'
+import popupModal from './features/home/popupModal'
 import preloader from './features/home/preloader'
 // UI
 import inputUI from './features/UI/inputUI'
@@ -31,6 +32,7 @@ if (!isMobile()) {
 // UI
 stateUI()
 inputUI()
+popupModal()
 
 requestAnimationFrame(() => {
   requestAnimationFrame(() => {

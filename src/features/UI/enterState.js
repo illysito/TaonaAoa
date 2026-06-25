@@ -172,7 +172,7 @@ function enterState(currentState) {
     }
     case 1: {
       tl.to(ui_title, {
-        yPercent: 0,
+        // yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -192,7 +192,7 @@ function enterState(currentState) {
     }
     case 2: {
       tl.to(ui_title, {
-        yPercent: 0,
+        // yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -256,7 +256,7 @@ function enterState(currentState) {
     }
     case 3: {
       tl.to(ui_title, {
-        yPercent: 0,
+        // yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -276,7 +276,7 @@ function enterState(currentState) {
     }
     case 4: {
       tl.to(ui_title, {
-        yPercent: 0,
+        // yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -296,7 +296,7 @@ function enterState(currentState) {
     }
     case 5: {
       tl.to(ui_title, {
-        yPercent: 0,
+        // yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -316,7 +316,7 @@ function enterState(currentState) {
     }
     case 6: {
       tl.to(ui_title, {
-        yPercent: 0,
+        // yPercent: 0,
         opacity: 1,
         duration: titleRevealDuration,
         ease: titleRevealEase,

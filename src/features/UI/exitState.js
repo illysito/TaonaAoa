@@ -167,7 +167,7 @@ function exitState(previousState, currentState) {
     }
     case 1: {
       tl.to(ui_title, {
-        yPercent: 6,
+        // yPercent: 6,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -185,7 +185,7 @@ function exitState(previousState, currentState) {
     }
     case 2: {
       tl.to(ui_title, {
-        yPercent: 6,
+        // yPercent: 6,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -203,7 +203,7 @@ function exitState(previousState, currentState) {
     }
     case 3: {
       tl.to(ui_title, {
-        yPercent: 6,
+        // yPercent: 6,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -220,7 +220,7 @@ function exitState(previousState, currentState) {
     }
     case 4: {
       tl.to(ui_title, {
-        yPercent: 6,
+        // yPercent: 6,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -237,7 +237,7 @@ function exitState(previousState, currentState) {
     }
     case 5: {
       tl.to(ui_title, {
-        yPercent: 6,
+        // yPercent: 6,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,
@@ -254,7 +254,7 @@ function exitState(previousState, currentState) {
     }
     case 6: {
       tl.to(ui_title, {
-        yPercent: 6,
+        // yPercent: 6,
         opacity: 0,
         duration: titleRevealDuration,
         ease: titleRevealEase,

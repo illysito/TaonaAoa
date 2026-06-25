@@ -3,10 +3,11 @@ import gsap from 'gsap'
 import randomChar from '../functions/randomChar'
 
 function preloader() {
-  const button = document.querySelector('.circular-button')
+  // const button = document.querySelector('.circular-button')
   const preloaderSection = document.querySelector('.preloader-section')
   const circle = document.getElementById('loader-circle')
   const heroH = document.querySelector('.hero-h')
+  const preloaderH = document.querySelector('.preloader-h')
   const footer = document.querySelector('.footer-section')
   const nav = document.querySelector('.nav')
   // const spike = 'M0,0 C0.08,0 0.12,1.2 0.18,1.0 0.3,0.5 0.6,0.15 1,0'
@@ -97,8 +98,11 @@ function preloader() {
 
   fakePreloader()
 
-  button.addEventListener('click', () => {
+  let wasClicked = false
+  preloaderH.addEventListener('click', () => {
+    if (wasClicked) return
     const tl = gsap.timeline()
+    preloaderH.style.pointerEvents = 'none'
     tl.to(circle, {
       opacity: 0.42,
       strokeDashoffset: -circumference,
@@ -158,6 +162,7 @@ function preloader() {
       '<'
     )
     localStorage.setItem('preloaderHasBeenShown', 'true')
+    wasClicked = true
   })
 
   window.addEventListener('worldReady', () => {
@@ -165,6 +170,7 @@ function preloader() {
   })
 
   count.addEventListener('mouseenter', () => {
+    if (wasClicked) return
     if (isReadyToRandomChar) {
       randomChar(count, 0.5, 15, 'START')
     }
