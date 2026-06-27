@@ -759,16 +759,16 @@ async function worldHome() {
   })
 
   // SCROLL (MOBILE)
-  // if (isMobile()) {
-  //   window.addEventListener('scroll', () => {
-  //     targetScroll = window.scrollY
-  //   })
-  //   // gsap.to(clickRotation, {
-  //   //   value: Math.PI / 8,
-  //   //   duration: 1.8,
-  //   //   ease: 'expo.inOut',
-  //   // })
-  // }
+  if (isMobile()) {
+    window.addEventListener('scroll', () => {
+      targetScroll = window.scrollY
+    })
+    // gsap.to(clickRotation, {
+    //   value: Math.PI / 8,
+    //   duration: 1.8,
+    //   ease: 'expo.inOut',
+    // })
+  }
   //#endregion
 }
 
