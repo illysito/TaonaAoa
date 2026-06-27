@@ -426,6 +426,9 @@ async function worldHome() {
   let isRing = false
   let clickRotation = { value: 0 }
 
+  // scroll variables
+  let targetScroll = 0
+
   // Quaternion handling to make each plane look always to the FRONT
   const cameraQuat = new THREE.Quaternion()
   const parentQuat = new THREE.Quaternion()
@@ -480,6 +483,7 @@ async function worldHome() {
       if (isMobile()) {
         sphereGroup.rotation.y = 2 * sphereCounter
         sphereGroup.rotation.x = 0.6 * sphereCounter
+        sphereGroup.position.z = 80 + targetScroll
       } else {
         sphereGroup.rotation.x =
           -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
@@ -750,21 +754,8 @@ async function worldHome() {
 
   // SCROLL (MOBILE)
   if (isMobile()) {
-    const trigger = document.querySelector('.slide_1')
-    gsap.to(sphereGroup.position, {
-      z: 900,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: trigger,
-        start: 'top 1400',
-        end: 'top top',
-        scrub: true,
-      },
-      // onComplete: () => {
-      //   gsap.set(sphereGroup, {
-      //     visible: false,
-      //   })
-      // },
+    window.addEventListener('scroll', () => {
+      targetScroll = window.scrollY
     })
     // gsap.to(clickRotation, {
     //   value: Math.PI / 8,
