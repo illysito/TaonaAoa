@@ -185,9 +185,9 @@ async function worldHome() {
   let planeSizeDivider = 14
   let verticalOffset = 0
   if (isMobile()) {
-    radiusDivider = 6
-    planeSizeDivider = 24
-    verticalOffset = 80
+    radiusDivider = 4.6
+    planeSizeDivider = 20
+    verticalOffset = 60
   }
 
   sphereGroup.position.y = verticalOffset
@@ -282,20 +282,26 @@ async function worldHome() {
 
   function layoutRing(orientation) {
     let yRotation = null
+    let xRotation = null
     let excentricityX = null
     if (orientation === 'vertical') {
-      yRotation = Math.PI * 0.38
-      radiusDivider = 12
-      excentricityX = 1.6
+      yRotation = Math.PI / 2
+      xRotation = Math.PI / 2
+      radiusDivider = 8
+      excentricityX = 1
     } else {
       yRotation = 0
+      xRotation = 0
       radiusDivider = 3
       excentricityX = 1
     }
 
     const ringRadius = canvas.clientHeight / radiusDivider
 
+    console.log(xRotation)
     sphereGroup.rotation.z = yRotation
+    sphereGroup.rotation.y = xRotation
+    // sphereGroup.rotation.x = xRotation
 
     spherePlanes.forEach((plane, i) => {
       const angle = (i / count) * Math.PI * 2
@@ -488,7 +494,7 @@ async function worldHome() {
         if (targetScroll > 500) {
           targetScroll = 500
         }
-        sphereGroup.position.y = targetScroll
+        sphereGroup.position.y = targetScroll + verticalOffset
       } else {
         sphereGroup.rotation.x =
           -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
