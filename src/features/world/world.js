@@ -181,8 +181,8 @@ async function worldHome() {
   let planeSizeDivider = 14
   let verticalOffset = 0
   if (isMobile()) {
-    radiusDivider = 4.6
-    planeSizeDivider = 18
+    radiusDivider = 5
+    planeSizeDivider = 24
     verticalOffset = 60
   }
 
