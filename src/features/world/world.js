@@ -187,7 +187,7 @@ async function worldHome() {
   if (isMobile()) {
     radiusDivider = 5.6
     planeSizeDivider = 24
-    verticalOffset = 60
+    verticalOffset = 80
   }
 
   sphereGroup.position.y = verticalOffset
