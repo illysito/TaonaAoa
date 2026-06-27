@@ -184,7 +184,7 @@ async function worldHome() {
   let planeSizeDivider = 14
   let verticalOffset = 0
   if (isMobile()) {
-    radiusDivider = 5.2
+    radiusDivider = 6
     planeSizeDivider = 24
     verticalOffset = 40
   }
@@ -281,11 +281,10 @@ async function worldHome() {
 
   function layoutRing(orientation) {
     let yRotation = null
-    let radiusDivider = null
     let excentricityX = null
     if (orientation === 'vertical') {
       yRotation = Math.PI * 0.38
-      radiusDivider = 5.2
+      radiusDivider = 6.4
       excentricityX = 1.6
     } else {
       yRotation = 0
@@ -742,8 +741,8 @@ async function worldHome() {
 
   window.addEventListener('preloaderIsFinished', () => {
     if (isMobile()) {
-      // layoutRing('vertical')
-      layoutSphere()
+      layoutRing('vertical')
+      // layoutSphere()
     } else {
       layoutSphere()
     }
