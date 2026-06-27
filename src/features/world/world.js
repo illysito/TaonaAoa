@@ -77,7 +77,7 @@ async function worldHome() {
 
   if (isMobile()) {
     horizontalSegments = Math.round(
-      (verticalSegments * canvas.innerWidth) / canvas.innerHeight
+      (verticalSegments * window.innerWidth) / window.innerHeight
     )
   } else {
     horizontalSegments = 140
@@ -165,8 +165,8 @@ async function worldHome() {
   scene.add(sphereGroup)
 
   const count = 36
-  const radius = window.innerHeight / 3.4
-  const planeSize = (1.2 * window.innerHeight) / 14
+  const radius = canvas.innerHeight / 3.4
+  const planeSize = (1.2 * canvas.innerHeight) / 14
 
   // Keep a list of my planes to then raycast them and do stuff
   const spherePlanes = []
@@ -266,7 +266,7 @@ async function worldHome() {
       excentricityX = 1
     }
 
-    const ringRadius = window.innerHeight / radiusDivider
+    const ringRadius = canvas.innerHeight / radiusDivider
 
     sphereGroup.rotation.z = yRotation
 
