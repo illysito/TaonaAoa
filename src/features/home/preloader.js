@@ -124,6 +124,7 @@ function preloader() {
             // },
           })
         )
+        document.body.style.overflow = 'visible'
       },
       onComplete: () => {
         gsap.set(preloaderSection, {

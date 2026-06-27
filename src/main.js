@@ -3,11 +3,10 @@
 // import customCursor from './features/functions/customCursor'
 // HOME
 import footer from './features/home/footer'
+import mobile from './features/home/mobile'
 import popupModal from './features/home/popupModal'
 import preloader from './features/home/preloader'
 // UI
-import inputUI from './features/UI/inputUI'
-import stateUI from './features/UI/stateUI'
 // THREE
 import worldHome from './features/world/world'
 
@@ -27,11 +26,19 @@ if (!isMobile()) {
   import('./features/functions/audio').then(({ default: audio }) => {
     audio()
   })
+  import('./features/UI/stateUI').then(({ default: stateUI }) => {
+    stateUI()
+  })
+  import('./features/UI/inputUI').then(({ default: inputUI }) => {
+    inputUI()
+  })
+  console.log('not mobile')
+} else {
+  mobile()
+  console.log('mobile')
 }
-// customCursor()
-// UI
-stateUI()
-inputUI()
+
+// MODAL
 popupModal()
 
 requestAnimationFrame(() => {

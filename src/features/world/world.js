@@ -133,6 +133,7 @@ async function worldHome() {
   plane.renderOrder = 0
   plane.material.depthWrite = false
   plane.material.depthTest = true
+
   scene.add(plane)
 
   //#endregion
@@ -438,6 +439,8 @@ async function worldHome() {
 
   function animate() {
     if (!animationStarted) return
+
+    // Background plane
     planeCounter = (planeCounter + 0.001) % 5000 // safeguard to not let counter evolve endlessly
     planeMaterial.uniforms.u_time.value = planeCounter
     planeMaterial.uniforms.u_cycleSpeed.value = UNIFORMS.u_cycleSpeed.value
@@ -482,6 +485,9 @@ async function worldHome() {
       if (isMobile()) {
         sphereGroup.rotation.y = 2 * sphereCounter
         sphereGroup.rotation.x = 0.6 * sphereCounter
+        if (targetScroll > 500) {
+          targetScroll = 500
+        }
         sphereGroup.position.y = targetScroll
       } else {
         sphereGroup.rotation.x =
@@ -633,6 +639,7 @@ async function worldHome() {
       visible: true,
     })
     gsap.to(sphereGroup.position, {
+      delay: 0.4,
       z: 80,
       // scale: 1,
       duration: 2,
@@ -741,7 +748,7 @@ async function worldHome() {
 
   window.addEventListener('preloaderIsFinished', () => {
     if (isMobile()) {
-      layoutRing('vertical')
+      // layoutRing('vertical')
       // layoutSphere()
     } else {
       layoutSphere()
@@ -752,16 +759,16 @@ async function worldHome() {
   })
 
   // SCROLL (MOBILE)
-  if (isMobile()) {
-    window.addEventListener('scroll', () => {
-      targetScroll = window.scrollY
-    })
-    // gsap.to(clickRotation, {
-    //   value: Math.PI / 8,
-    //   duration: 1.8,
-    //   ease: 'expo.inOut',
-    // })
-  }
+  // if (isMobile()) {
+  //   window.addEventListener('scroll', () => {
+  //     targetScroll = window.scrollY
+  //   })
+  //   // gsap.to(clickRotation, {
+  //   //   value: Math.PI / 8,
+  //   //   duration: 1.8,
+  //   //   ease: 'expo.inOut',
+  //   // })
+  // }
   //#endregion
 }
 
