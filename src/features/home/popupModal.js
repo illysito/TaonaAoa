@@ -19,6 +19,11 @@ function popupModal() {
     zIndex: -1,
   })
 
+  gsap.set(modalMob, {
+    yPercent: -100,
+    zIndex: -1,
+  })
+
   footerButton.addEventListener('click', () => {
     console.log('yeka')
     const tl = gsap.timeline()
@@ -37,7 +42,7 @@ function popupModal() {
       modalMob.style.zIndex = 401
       tl.to(modalMob, {
         opacity: 1,
-        scale: 1,
+        yPercent: 0,
         duration: 1,
         ease: 'expo.inOut',
       })
@@ -62,7 +67,7 @@ function popupModal() {
       modalMob.style.zIndex = 401
       tl.to(modalMob, {
         opacity: 1,
-        scale: 1,
+        yPercent: 0,
         duration: 1,
         ease: 'expo.inOut',
       })
@@ -117,7 +122,7 @@ function popupModal() {
     })
 
     tl.to(modalMob, {
-      scale: 0,
+      yPercent: -100,
       duration: 1,
       ease: 'expo.inOut',
       onComplete: () => {
