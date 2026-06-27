@@ -431,9 +431,11 @@ async function worldHome() {
     sphereGroup.children.forEach((plane, i) => {
       plane.quaternion.copy(inverseParentQuat).multiply(cameraQuat)
 
-      plane.scale.x += 0.00012 * Math.sin(sphereCounter + i)
-      plane.scale.y += 0.00012 * Math.sin(sphereCounter + i)
-      plane.scale.z += 0.00012 * Math.sin(sphereCounter + i)
+      if (!isMobile()) {
+        plane.scale.x += 0.00012 * Math.sin(sphereCounter + i)
+        plane.scale.y += 0.00012 * Math.sin(sphereCounter + i)
+        plane.scale.z += 0.00012 * Math.sin(sphereCounter + i)
+      }
 
       // plane.position.x =
       //   plane.userData.basePosition.x +
@@ -701,7 +703,8 @@ async function worldHome() {
 
   window.addEventListener('preloaderIsFinished', () => {
     if (isMobile()) {
-      layoutRing('vertical')
+      // layoutRing('vertical')
+      layoutSphere()
     } else {
       layoutSphere()
     }
