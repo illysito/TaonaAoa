@@ -491,10 +491,10 @@ async function worldHome() {
       if (isMobile()) {
         sphereGroup.rotation.y = 2 * sphereCounter
         sphereGroup.rotation.x = 0.6 * sphereCounter
-        if (targetScroll > 500) {
-          targetScroll = 500
+        if (targetScroll > 900) {
+          targetScroll = 900
         }
-        sphereGroup.position.y = targetScroll + verticalOffset
+        sphereGroup.position.z = targetScroll
       } else {
         sphereGroup.rotation.x =
           -0.2 * Math.sin(sphereCounter) + 1.6 * dragRotationY
