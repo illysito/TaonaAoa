@@ -753,9 +753,7 @@ async function worldHome() {
     const trigger = document.querySelector('.slide_1')
     gsap.to(sphereGroup.position, {
       z: 900,
-      // scale: 2.8,
-      // duration: 2,
-      // ease: 'expo.inOut',
+      ease: 'none',
       scrollTrigger: {
         trigger: trigger,
         start: 'top 1400',
