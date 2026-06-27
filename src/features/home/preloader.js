@@ -112,7 +112,7 @@ function preloader() {
 
     tl.to(circle, {
       opacity: 0.42,
-      strokeDashoffset: -circumference,
+      strokeDashoffset: circumference,
       duration: 2,
       ease: 'expo.inOut',
     })
