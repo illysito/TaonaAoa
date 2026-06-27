@@ -41,7 +41,7 @@ async function worldHome() {
   // Camera
   const camera = new THREE.PerspectiveCamera(
     45,
-    window.innerWidth / window.innerHeight,
+    canvas.clientWidth / canvas.clientHeight,
     1,
     2000
   )
@@ -60,7 +60,7 @@ async function worldHome() {
     antialias: true,
     alpha: true,
   })
-  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight)
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -479,9 +479,9 @@ async function worldHome() {
   // -------------------------------------------------------------- Resize --------------------------------------------------------------
 
   window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight
+    camera.aspect = canvas.clientWidth / canvas.clientHeight
     camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight)
   })
 
   //#endregion
