@@ -6,7 +6,7 @@ function preloader() {
   // const button = document.querySelector('.circular-button')
   const preloaderSection = document.querySelector('.preloader-section')
   const circle = document.getElementById('loader-circle')
-  const heroH = document.querySelector('.hero-h')
+  const heroH = document.querySelector('.hero-h-wrapper')
   const preloaderH = document.querySelector('.preloader-h')
   const footer = document.querySelector('.footer-section')
   const nav = document.querySelector('.nav')

@@ -8,7 +8,8 @@ gsap.registerPlugin(ScrollTrigger)
 function mobile() {
   const navImg = document.querySelector('.logo-img')
   const trigger = document.querySelector('.slide_1')
-  const heroH = document.querySelector('.hero-h')
+  const heroH = document.querySelector('.hero-h-wrapper')
+  const headingWrapper = document.querySelector('.heading-wrapper')
 
   navImg.addEventListener('click', () => {
     window.scrollTo({
@@ -18,7 +19,7 @@ function mobile() {
   })
 
   gsap.fromTo(
-    heroH,
+    [heroH, headingWrapper],
     {
       scale: 1,
       opacity: 1,
