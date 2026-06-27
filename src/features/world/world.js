@@ -1,5 +1,8 @@
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import * as THREE from 'three'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Data
 import PROJECTS, { ALPHA_MAP } from '../data/textures'
@@ -181,9 +184,9 @@ async function worldHome() {
   let planeSizeDivider = 14
   let verticalOffset = 0
   if (isMobile()) {
-    radiusDivider = 5
+    radiusDivider = 4.6
     planeSizeDivider = 24
-    verticalOffset = 60
+    verticalOffset = 40
   }
 
   sphereGroup.position.y = verticalOffset
@@ -745,6 +748,32 @@ async function worldHome() {
     animate()
   })
 
+  // SCROLL (MOBILE)
+  if (isMobile()) {
+    const trigger = document.querySelector('.slide_1')
+    gsap.to(sphereGroup.position, {
+      z: 900,
+      // scale: 2.8,
+      // duration: 2,
+      ease: 'expo.inOut',
+      scrollTrigger: {
+        trigger: trigger,
+        start: 'top 1400',
+        end: 'top top',
+        scrub: true,
+      },
+      // onComplete: () => {
+      //   gsap.set(sphereGroup, {
+      //     visible: false,
+      //   })
+      // },
+    })
+    // gsap.to(clickRotation, {
+    //   value: Math.PI / 8,
+    //   duration: 1.8,
+    //   ease: 'expo.inOut',
+    // })
+  }
   //#endregion
 }
 

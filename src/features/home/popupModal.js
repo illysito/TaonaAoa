@@ -45,10 +45,14 @@ function popupModal() {
     })
 
     tl.to(modal, {
-      opacity: 0,
       scale: 0,
       duration: 1,
       ease: 'expo.inOut',
+      onComplete: () => {
+        gsap.set(modal, {
+          opacity: 0,
+        })
+      },
     })
 
     // tl.set(modal, {
