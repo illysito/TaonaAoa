@@ -104,7 +104,12 @@ function preloader() {
 
     wasClicked = true
 
-    gsap.killTweensOf(circle)
+    // gsap.killTweensOf(circle)
+    gsap.set(circle, {
+      scaleX: -1,
+      transformOrigin: '50% 50%',
+      strokeDashoffset: 0,
+    })
 
     preloaderH.style.pointerEvents = 'none'
 
