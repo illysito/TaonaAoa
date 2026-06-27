@@ -7,10 +7,11 @@
   background: #000;
 }
 
-.canvas-embed {
+/* .canvas-embed {
   width: 100svw;
   height: 100svh;
-}
+} */
+
 #canvas {
   width: 100%;
   height: 100%;
