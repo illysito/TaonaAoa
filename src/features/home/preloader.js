@@ -6,7 +6,8 @@ function preloader() {
   // const button = document.querySelector('.circular-button')
   const preloaderSection = document.querySelector('.preloader-section')
   const circle = document.getElementById('loader-circle')
-  const heroH = document.querySelector('.hero-h-wrapper')
+  const heroH = document.querySelectorAll('.hero-h-wrapper')
+  const heroButton = document.querySelector('.pop-up-button-hero')
   const preloaderH = document.querySelector('.preloader-h')
   const footer = document.querySelector('.footer-section')
   const nav = document.querySelector('.nav')
@@ -150,6 +151,15 @@ function preloader() {
       heroH,
       {
         scale: 1,
+        opacity: 1,
+        duration: 1.4,
+        ease: 'expo.inOut',
+      },
+      '<'
+    )
+    tl.to(
+      heroButton,
+      {
         opacity: 1,
         duration: 1.4,
         ease: 'expo.inOut',
