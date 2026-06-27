@@ -165,8 +165,8 @@ async function worldHome() {
   scene.add(sphereGroup)
 
   const count = 36
-  const radius = canvas.innerHeight / 3.4
-  const planeSize = (1.2 * canvas.innerHeight) / 14
+  const radius = canvas.clientHeight / 3.4
+  const planeSize = (1.2 * canvas.clientHeight) / 14
 
   // Keep a list of my planes to then raycast them and do stuff
   const spherePlanes = []
@@ -266,7 +266,7 @@ async function worldHome() {
       excentricityX = 1
     }
 
-    const ringRadius = canvas.innerHeight / radiusDivider
+    const ringRadius = canvas.clientHeight / radiusDivider
 
     sphereGroup.rotation.z = yRotation
 
