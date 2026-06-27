@@ -124,12 +124,12 @@ function preloader() {
             // },
           })
         )
-        document.body.style.overflow = 'visible'
       },
       onComplete: () => {
         gsap.set(preloaderSection, {
           zIndex: -1,
         })
+        document.body.style.overflow = 'visible'
       },
     })
     tl.to(
