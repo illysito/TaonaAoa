@@ -749,7 +749,7 @@ async function worldHome() {
   window.addEventListener('preloaderIsFinished', () => {
     if (isMobile()) {
       // layoutRing('vertical')
-      // layoutSphere()
+      layoutSphere()
     } else {
       layoutSphere()
     }
