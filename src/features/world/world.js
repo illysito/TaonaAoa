@@ -755,7 +755,7 @@ async function worldHome() {
       z: 900,
       // scale: 2.8,
       // duration: 2,
-      ease: 'expo.inOut',
+      // ease: 'expo.inOut',
       scrollTrigger: {
         trigger: trigger,
         start: 'top 1400',
