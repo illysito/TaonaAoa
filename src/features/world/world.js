@@ -38,13 +38,23 @@ async function worldHome() {
   const scene = new THREE.Scene()
   scene.background = new THREE.Color(0x060606)
 
+  let resolution = { x: 0, y: 0 }
+  if (isMobile()) {
+    resolution.x = canvas.clientWidth
+    resolution.y = canvas.clientHeight
+  } else {
+    resolution.x = window.innerWidth
+    resolution.y = window.innerHeight
+  }
+
   // Camera
   const camera = new THREE.PerspectiveCamera(
     45,
-    canvas.clientWidth / canvas.clientHeight,
+    resolution.x / resolution.y,
     1,
     2000
   )
+  console.log(canvas.clientHeight)
   camera.position.z = 600
   function updateCamera() {
     camera.fov =
@@ -60,7 +70,7 @@ async function worldHome() {
     antialias: true,
     alpha: true,
   })
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight)
+  renderer.setSize(resolution.x, resolution.y)
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -479,9 +489,16 @@ async function worldHome() {
   // -------------------------------------------------------------- Resize --------------------------------------------------------------
 
   window.addEventListener('resize', () => {
-    camera.aspect = canvas.clientWidth / canvas.clientHeight
+    if (isMobile()) {
+      resolution.x = canvas.clientWidth
+      resolution.y = canvas.clientHeight
+    } else {
+      resolution.x = window.innerWidth
+      resolution.y = window.innerHeight
+    }
+    camera.aspect = resolution.x / resolution.y
     camera.updateProjectionMatrix()
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight)
+    renderer.setSize(resolution.x, resolution.y)
   })
 
   //#endregion

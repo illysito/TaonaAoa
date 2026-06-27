@@ -7,6 +7,15 @@
   background: #000;
 }
 
+.canvas-embed {
+  width: 100svw;
+  height: 100svh;
+}
+#canvas {
+  width: 100%;
+  height: 100%;
+}
+
 img,
 .hero-h,
 .taona-h {
