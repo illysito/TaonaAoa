@@ -284,7 +284,7 @@ async function worldHome() {
     let excentricityX = null
     if (orientation === 'vertical') {
       yRotation = Math.PI * 0.38
-      radiusDivider = 6.4
+      radiusDivider = 8
       excentricityX = 1.6
     } else {
       yRotation = 0
