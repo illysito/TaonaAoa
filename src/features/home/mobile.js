@@ -10,6 +10,78 @@ function mobile() {
   const trigger = document.querySelector('.slide_1')
   const heroH = document.querySelectorAll('.hero-h-wrapper')
   const heroButton = document.querySelector('.pop-up-button-hero')
+
+  // const slides = []
+  const slide1 = document.querySelector('.slide_1')
+  const slide2 = document.querySelector('.slide_2')
+  const slide3 = document.querySelector('.slide_3')
+  const slide4 = document.querySelector('.slide_4')
+  const slide5 = document.querySelector('.slide_5')
+  const slide6 = document.querySelector('.slide_6')
+
+  gsap.set([slide1, slide2, slide3, slide4, slide5, slide6], {
+    opacity: 0,
+  })
+
+  gsap.to(slide1, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: slide1,
+      start: 'top 100%',
+      end: 'top 40%',
+      scrub: true,
+    },
+  })
+
+  gsap.to(slide2, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: slide2,
+      start: 'top 100%',
+      end: 'top 40%',
+      scrub: true,
+    },
+  })
+
+  gsap.to(slide3, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: slide3,
+      start: 'top 100%',
+      end: 'top 40%',
+      scrub: true,
+    },
+  })
+
+  gsap.to(slide4, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: slide4,
+      start: 'top 100%',
+      end: 'top 40%',
+      scrub: true,
+    },
+  })
+
+  gsap.to(slide5, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: slide5,
+      start: 'top 100%',
+      end: 'top 40%',
+      scrub: true,
+    },
+  })
+
+  gsap.to(slide6, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: slide6,
+      start: 'top 100%',
+      end: 'top 40%',
+      scrub: true,
+    },
+  })
   // const headingWrapper = document.querySelector('.heading-wrapper')
 
   navImg.addEventListener('click', () => {
