@@ -101,15 +101,24 @@ function preloader() {
   let wasClicked = false
   preloaderH.addEventListener('click', () => {
     if (wasClicked) return
-    const tl = gsap.timeline()
+
+    wasClicked = true
+
+    gsap.killTweensOf(circle)
+
     preloaderH.style.pointerEvents = 'none'
+
+    const tl = gsap.timeline()
+
     tl.to(circle, {
       opacity: 0.42,
       strokeDashoffset: -circumference,
       duration: 2,
       ease: 'expo.inOut',
     })
+
     randomChar(count, 0.5, 12, '\u00A0\u00A0\u00A0\u00A0\u00A0')
+
     tl.to(preloaderSection, {
       // delay: 3,
       opacity: 0,
@@ -162,8 +171,8 @@ function preloader() {
       },
       '<'
     )
+
     localStorage.setItem('preloaderHasBeenShown', 'true')
-    wasClicked = true
   })
 
   window.addEventListener('worldReady', () => {
