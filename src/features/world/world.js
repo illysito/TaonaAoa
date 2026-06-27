@@ -77,7 +77,7 @@ async function worldHome() {
 
   if (isMobile()) {
     horizontalSegments = Math.round(
-      (verticalSegments * window.innerWidth) / window.innerHeight
+      (verticalSegments * canvas.innerWidth) / canvas.innerHeight
     )
   } else {
     horizontalSegments = 140
