@@ -117,7 +117,10 @@ async function worldHome() {
     },
   })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  const planeScale = 2.4
+  let planeScale = 2.4
+  if (isMobile()) {
+    planeScale = 1.8
+  }
   plane.rotation.x = 0.1
   plane.rotation.z = Math.PI
   plane.position.x = -100
@@ -174,9 +177,20 @@ async function worldHome() {
   const sphereGroup = new THREE.Group()
   scene.add(sphereGroup)
 
+  let radiusDivider = 3.4
+  let planeSizeDivider = 14
+  let verticalOffset = 0
+  if (isMobile()) {
+    radiusDivider = 4.6
+    planeSizeDivider = 18
+    verticalOffset = 60
+  }
+
+  sphereGroup.position.y = verticalOffset
+
   const count = 36
-  const radius = canvas.clientHeight / 3.4
-  const planeSize = (1.2 * canvas.clientHeight) / 14
+  const radius = canvas.clientHeight / radiusDivider
+  const planeSize = (1.2 * canvas.clientHeight) / planeSizeDivider
 
   // Keep a list of my planes to then raycast them and do stuff
   const spherePlanes = []
@@ -622,6 +636,7 @@ async function worldHome() {
 
   // PLANE SELECTION
   window.addEventListener('click', () => {
+    if (isMobile()) return
     const heldTime = performance.now() - pointerDownTime
     if (heldTime > 180) return
     if (currentPlaneMesh && !getIsTransitioning() && preloaderIsFinished) {
