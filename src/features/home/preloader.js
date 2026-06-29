@@ -93,6 +93,14 @@ function preloader() {
     } else {
       count.style.cursor = 'pointer'
       isReadyToRandomChar = true
+      window.dispatchEvent(
+        new CustomEvent('preloaderIsReadyToClick', {
+          // detail: {
+          //   previousState: currentState,
+          //   currentState: nextState,
+          // },
+        })
+      )
       count.textContent = 'START'
     }
   }

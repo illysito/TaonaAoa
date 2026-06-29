@@ -8,6 +8,8 @@ function githubToJsDelivr(permalink) {
     .replace('/blob/', '@')
 }
 
+let preloaderIsReady = false
+
 function audio() {
   // function isMobile() {
   //   return window.matchMedia('(max-width: 768px)').matches
@@ -203,7 +205,11 @@ function audio() {
     })
   })
 
+  window.addEventListener('preloaderIsReadyToClick', () => {
+    preloaderIsReady = true
+  })
   preloaderH.addEventListener('click', () => {
+    if (!preloaderIsReady) return
     if (ambient.paused) {
       audioIsOn = true
       gsap.to(ambient, {
