@@ -4,6 +4,10 @@ function isMobile() {
   return window.matchMedia('(max-width: 667px)').matches
 }
 
+const w = window.innerWidth
+const h = window.innerHeight
+const res = w / h
+
 function popupModal() {
   const modal = document.querySelector('.pop-up-modal')
   const modalMob = document.querySelector('.pop-up-modal-mobile')
@@ -13,6 +17,11 @@ function popupModal() {
   const closeButtonMob = document.querySelector('.close-button-mobile')
   const closeButtonX1 = closeButton.firstElementChild
   const closeButtonX2 = closeButton.lastElementChild
+
+  if (res > 1.75) {
+    modal.style.width = '100%'
+    modal.style.height = '100%'
+  }
 
   gsap.set(modal, {
     scale: 0,
