@@ -18,7 +18,7 @@ function popupModal() {
   const closeButtonX1 = closeButton.firstElementChild
   const closeButtonX2 = closeButton.lastElementChild
 
-  if (res > 1.7) {
+  if (res > 1.75) {
     modal.style.width = '100%'
     modal.style.height = '100%'
     modal.style.top = 0
