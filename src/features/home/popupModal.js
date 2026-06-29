@@ -22,7 +22,7 @@ function popupModal() {
     modal.style.width = '100%'
     modal.style.height = '100%'
     modal.style.top = 0
-    modal.style.top = 0
+    modal.style.left = 0
   }
 
   gsap.set(modal, {
