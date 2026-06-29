@@ -63,7 +63,7 @@ function audio() {
   const typeFXs = [typeFX_1, typeFX_2, typeFX_3, typeFX_4]
 
   for (let i = 0; i < typeFXs.length; i++) {
-    typeFXs[i].volume = 0.2 * volumeMultiplier
+    typeFXs[i].volume = 0.32 * volumeMultiplier
   }
 
   function playFX() {
@@ -78,7 +78,7 @@ function audio() {
   ambient.loop = true
   ambient.volume = 0
 
-  clickFX.volume = 0.16 * volumeMultiplier
+  clickFX.volume = 0.26 * volumeMultiplier
 
   const audioButton = document.querySelector('.audio-button')
   const circularityButton = document.querySelector('.circularity-button')

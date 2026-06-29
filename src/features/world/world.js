@@ -299,8 +299,10 @@ async function worldHome() {
     const ringRadius = canvas.clientHeight / radiusDivider
 
     console.log(xRotation)
-    sphereGroup.rotation.z = yRotation
-    sphereGroup.rotation.y = xRotation
+    if (orientation === 'vertical') {
+      sphereGroup.rotation.z = yRotation
+      sphereGroup.rotation.y = xRotation
+    }
     // sphereGroup.rotation.x = xRotation
 
     spherePlanes.forEach((plane, i) => {

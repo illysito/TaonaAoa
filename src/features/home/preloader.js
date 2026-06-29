@@ -102,6 +102,7 @@ function preloader() {
   let wasClicked = false
   preloaderH.addEventListener('click', () => {
     if (wasClicked) return
+    if (!isReadyToRandomChar) return
 
     wasClicked = true
 
