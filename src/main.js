@@ -23,7 +23,7 @@ preloader()
 // worldHome()
 footer()
 if (!isMobile()) {
-  import('./features/functions/audio2').then(({ default: audio }) => {
+  import('./features/functions/audio').then(({ default: audio }) => {
     audio()
   })
   import('./features/UI/stateUI').then(({ default: stateUI }) => {
